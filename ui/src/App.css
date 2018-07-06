@@ -1,3 +1,7 @@
 .App {
 }
 
+.slide-pane__close > svg {
+  color: #335a4e;
+  transform: rotate(180deg);
+}

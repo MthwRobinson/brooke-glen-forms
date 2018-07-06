@@ -36,15 +36,9 @@ class App extends Component {
     let menu = (
       <div ref={ref => this.el = ref}>
         <SlidingPane
-          className='some-custom-class'
-          overlayClassName='some-custom-overlay-class'
-          width='400px'
+          width='300px'
           isOpen={ this.state.isPaneOpen }
-          title='Hey, it is optional pane title.  I can be React component too.'
-          subtitle='Optional subtitle.'
-          onRequestClose={ () => {
-          this.setState({ isPaneOpen: false });
-        } }>
+          onRequestClose={() => this.closeMenuHandler()}>
           <MenuContent />
         </SlidingPane>
       </div>
