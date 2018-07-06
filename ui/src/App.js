@@ -8,6 +8,7 @@ import '../node_modules/font-awesome/css/font-awesome.min.css';
 import 'react-sliding-pane/dist/react-sliding-pane.css';
 
 import Header from './components/Header/Header';
+import MenuContent from './components/MenuContent/MenuContent';
 
 
 class App extends Component {
@@ -44,8 +45,7 @@ class App extends Component {
           onRequestClose={ () => {
           this.setState({ isPaneOpen: false });
         } }>
-          <div>And I am pane content. BTW, what rocks?</div>
-          <br />
+          <MenuContent />
         </SlidingPane>
       </div>
 
