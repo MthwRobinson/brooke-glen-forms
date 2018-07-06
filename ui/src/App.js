@@ -8,8 +8,8 @@ import '../node_modules/font-awesome/css/font-awesome.min.css';
 import 'react-sliding-pane/dist/react-sliding-pane.css';
 
 import Header from './components/Header/Header';
+import Home from './components/Home/Home';
 import MenuContent from './components/MenuContent/MenuContent';
-
 
 class App extends Component {
   constructor(props) {
@@ -49,6 +49,7 @@ class App extends Component {
       <div className="App">
         <Header clickMenu={()=>this.openMenuHandler()}/>
         {menu}
+        <Home />
       </div>
     );
   }

@@ -2,6 +2,6 @@
 }
 
 .slide-pane__close > svg {
-  color: #335a4e;
+  color: black;
   transform: rotate(180deg);
 }
