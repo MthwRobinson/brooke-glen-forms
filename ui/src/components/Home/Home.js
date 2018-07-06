@@ -3,11 +3,13 @@ import { Navbar } from 'react-bootstrap';
 
 import './Home.css';
 
+import PatientCard from './../PatientCard/PatientCard';
+
 class Home extends Component {
   render() {
     return (
       <div className="Home">
-        <h1>Hi there!</h1>
+        <PatientCard />
       </div>
     );
   }
