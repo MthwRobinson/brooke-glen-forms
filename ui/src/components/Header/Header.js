@@ -11,10 +11,10 @@ class Header extends Component {
         <Navbar fluid>
           <Navbar.Header>
             <Navbar.Brand>
-              <a href="#home">Brooke Glen Form Manager</a>
+              <a href="#home"> Brooke Glen Form Manager</a>
             </Navbar.Brand>
             <Navbar.Form className='pull-right menu-icon'>
-              <i className="fa fa-bars"></i>
+              <i className="fa fa-bars" onClick={this.props.clickMenu}></i>
             </Navbar.Form>
           </Navbar.Header>
         </Navbar>

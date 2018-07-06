@@ -18,6 +18,14 @@ class App extends Component {
     };
   }
 
+  openMenuHandler = () => {
+    this.setState({ isPaneOpen: true });
+  }
+  
+  closeMenuHandler = () => {
+    this.setState({ isPaneOpen: false });
+  }
+
   render() {
     let menu = (
       <div ref={ref => this.el = ref}>
@@ -55,7 +63,7 @@ class App extends Component {
 
     return (
       <div className="App">
-        <Header />
+        <Header clickMenu={()=>this.openMenuHandler()}/>
         {menu}
       </div>
     );
