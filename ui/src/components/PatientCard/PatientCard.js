@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import { Navbar } from 'react-bootstrap';
 
 import './PatientCard.css';
 
 class PatientCard extends Component {
   render() {
     return (
-      <div className="PatientCard">
+      <div className="PatientCard" border>
         <h1>Hi there!</h1>
       </div>
     );
