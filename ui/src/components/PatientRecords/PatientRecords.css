@@ -1,2 +1,26 @@
 .PatientRecords {
+  padding-left: 5%;
+  padding-right: 5%;
+  overflow-y: scroll;
+}
+
+.submit-button {
+  margin-top: 25px;
+}
+
+.filter-form {
+  margin-left: 50px;
+}
+
+h2 {
+  line-height: 80%;
+}
+
+h4 {
+  line-height: 5%;
+  padding-left: 20px;
+}
+
+hr {
+  border-color: black;
 }

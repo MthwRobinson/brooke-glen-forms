@@ -12,6 +12,7 @@ class PatientCard extends Component {
             className='patient-image hidden-sm hidden-xs'
             src='/images/placeholder-headshot.png'
             height='135'
+            alt="placeholder"
           />
         </Col>
         <Col xs={12} sm={12} md={8} lg={9}>
