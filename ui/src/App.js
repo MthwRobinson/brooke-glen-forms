@@ -36,6 +36,7 @@ class App extends Component {
 
   viewChangeHandler = (view) => {
     this.setState({ view: view });
+    this.closeMenuHandler();
   }
 
   render() {
@@ -63,8 +64,8 @@ class App extends Component {
     return (
       <div className="App">
         <Header clickMenu={()=>this.openMenuHandler()}/>
-        {menu}
         {body}
+        {menu}
       </div>
     );
   }
