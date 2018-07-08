@@ -18,7 +18,7 @@ class App extends Component {
     super(props);
     this.state = {
       isPaneOpen: false,
-      view: 'home'
+      view: 'trends'
     };
   }
   
