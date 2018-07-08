@@ -17,11 +17,11 @@ class PatientCard extends Component {
         </Col>
         <Col xs={12} sm={12} md={8} lg={9}>
           <div className='patient-info'>
-            <b>Name:</b> John Doe<br/>
-            <b>Updated:</b> 07/07/18 8:18 PM<br/>
-            <b>Unit:</b> Long Term Care<br/>
-            <b>Obs. Level:</b> Q15<br/>
-            <b>Precautions:</b> Fall, Aggression, Seizure, Withdrawal, Respiratory
+            <b>Name:</b> {this.props.name}<br/>
+            <b>Updated:</b> {this.props.updated}<br/>
+            <b>Unit:</b> {this.props.unit}<br/>
+            <b>Obs. Level:</b> {this.props.obsLevel}<br/>
+            <b>Precautions:</b> {this.props.precautions}
           </div>
         </Col>
       </div>
