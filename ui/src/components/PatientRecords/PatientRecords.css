@@ -1,11 +1,16 @@
 .PatientRecords {
   padding-left: 5%;
   padding-right: 5%;
-  overflow-y: scroll;
+  height: 100%;
 }
 
 .submit-button {
   margin-top: 25px;
+}
+
+.patient-table {
+  max-height: 470px;
+  overflow-y: scroll;
 }
 
 .filter-form {

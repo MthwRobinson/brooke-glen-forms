@@ -22,10 +22,8 @@ class PatientCard extends Component {
             <b>Unit:</b> Long Term Care<br/>
             <b>Obs. Level:</b> Q15<br/>
             <b>Precautions:</b> Fall, Aggression, Seizure, Withdrawal, Respiratory
-
           </div>
         </Col>
-
       </div>
     );
   }
