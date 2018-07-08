@@ -6,7 +6,7 @@ import './PatientCard.css';
 class PatientCard extends Component {
   render() {
     return (
-      <div className="PatientCard" border>
+      <div className="PatientCard">
         <Col xs={12} sm={12} md={4} lg={3}>
           <img 
             className='patient-image hidden-sm hidden-xs'

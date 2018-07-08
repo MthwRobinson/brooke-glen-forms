@@ -42,7 +42,8 @@ class PatientRecords extends Component {
             <Col xs={3} sm={3} md={3} lg={3}>
               <FormGroup controlId="formControlsSelect">
               <ControlLabel>Unit</ControlLabel>
-              <FormControl componentClass="select" placeholder="longTerm">
+              <FormControl componentClass="select" placeholder="all">
+              <option value="all">All</option>
               <option value="longTerm">Long Term Care</option>
               <option value="shortTerm">Short Term Care</option>
               </FormControl>
@@ -52,14 +53,26 @@ class PatientRecords extends Component {
               <FormGroup controlId="formControlsSelect">
               <ControlLabel>Observation Level</ControlLabel>
               <FormControl componentClass="select" placeholder="Q15">
+              <option value="all">All</option>
               <option value="Q15">Q15</option>
               <option value="1on1">1:1</option>
               <option value="CPAP">CPAP</option>
               </FormControl>
             </FormGroup>
             </Col>
+            <Col xs={3} sm={3} md={3} lg={3}>
+              <FormGroup controlId="formControlsSelect">
+              <ControlLabel>Precautions</ControlLabel>
+              <FormControl componentClass="select" placeholder="any">
+              <option value="any">Any</option>
+              <option value="Q15">Aggression</option>
+              <option value="1on1">Fall</option>
+              <option value="CPAP">Respiratory</option>
+              </FormControl>
+            </FormGroup>
+            </Col>
             <Col xs={2} sm={2} md={2} lg={2}>
-              <Button className='submit-button' type="submit">Submit</Button>
+              <Button className='submit-button' type="submit">Filter</Button>
             </Col>
           </form>
         </Row>
