@@ -10,12 +10,15 @@ import 'react-sliding-pane/dist/react-sliding-pane.css';
 import Header from './components/Header/Header';
 import Home from './components/Home/Home';
 import MenuContent from './components/MenuContent/MenuContent';
+import PatientRecords from './components/PatientRecords/PatientRecords';
+import Trends from './components/Trends/Trends';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       isPaneOpen: false,
+      view: 'home'
     };
   }
   
@@ -31,6 +34,9 @@ class App extends Component {
     this.setState({ isPaneOpen: false });
   }
 
+  viewChangeHandler = (view) => {
+    this.setState({ view: view });
+  }
 
   render() {
     let menu = (
@@ -39,17 +45,26 @@ class App extends Component {
           width='300px'
           isOpen={ this.state.isPaneOpen }
           onRequestClose={() => this.closeMenuHandler()}>
-          <MenuContent />
+          <MenuContent changeView={(view)=>this.viewChangeHandler(view)}/>
         </SlidingPane>
       </div>
 
     );
 
+    let body = null;
+    if(this.state.view==='home'){
+      body = <Home />
+    } else if(this.state.view==='patientRecords'){
+      body = <PatientRecords />
+    } else if(this.state.view==='trends'){
+      body = <Trends />
+    }
+
     return (
       <div className="App">
         <Header clickMenu={()=>this.openMenuHandler()}/>
         {menu}
-        <Home />
+        {body}
       </div>
     );
   }

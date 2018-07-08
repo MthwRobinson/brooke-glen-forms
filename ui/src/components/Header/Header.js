@@ -3,7 +3,6 @@ import { Navbar } from 'react-bootstrap';
 
 import './Header.css';
 
-//<i className="fa fa-bars menu-button pull-right"></i>
 class Header extends Component {
   render() {
     return (

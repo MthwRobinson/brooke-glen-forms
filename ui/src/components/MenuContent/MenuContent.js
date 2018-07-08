@@ -9,9 +9,18 @@ class MenuContent extends Component {
       <div className="MenuContent">
         <h3>Menu</h3>
         <hr/>
-        <a href="#home">Home</a><br/>
-        <a href="#patient">Patient Records</a><br/>
-        <a href="#trends">Trends</a><br/>
+        <a
+          href="#home"
+          onClick={()=>this.props.changeView('home')}>Home
+        </a><br/>
+        <a 
+          href="#patient-records"
+          onClick={()=>this.props.changeView('patientRecords')}>Patient Records
+        </a><br/>
+        <a
+          href="#trends"
+          onClick={()=>this.props.changeView('trends')}>Trends
+        </a><br/>
       </div>
     );
   }
