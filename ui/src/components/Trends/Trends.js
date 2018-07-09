@@ -38,7 +38,7 @@ class Trends extends Component {
           <h2>Trends</h2><hr/>
           <h4>Track trends in the patient population.</h4>
         </Row>
-        <Row className='plot-container'>
+        <Row className='plot-container hidden-xs hidden-sm'>
           <Plot
           data={[
             {
@@ -51,6 +51,27 @@ class Trends extends Component {
           layout={{
               width: 900, 
               height: 500, 
+              title: 'Precautions in the Patient Population',
+              showLegend: false,
+              yaxis: { tickformat: 'd' }
+            
+          }}
+          config={{staticPlot:true}}
+          />
+        </Row>
+        <Row className='plot-container hidden-md hidden-lg'>
+          <Plot
+          data={[
+            {
+              type: 'bar', 
+              marker: {color: '#828f5c'},
+              x: x, 
+              y: y
+            },
+          ]}
+          layout={{
+              width: 700, 
+              height: 600, 
               title: 'Precautions in the Patient Population',
               showLegend: false,
               yaxis: { tickformat: 'd' }
