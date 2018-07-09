@@ -67,7 +67,7 @@
     "updated": "07/07/18 8:18PM",
     "unit": "Long Term Care",
     "obsLevel": "Q15",
-    "precautions": ["Aggression", "Seizure"]
+    "precautions": ["Self-Mutilation", "Seizure"]
   },
   {
     "name": "Trex Tom",
@@ -88,13 +88,13 @@
     "updated": "07/07/18 8:18PM",
     "unit": "Short Term Care",
     "obsLevel": "CPAP",
-    "precautions": ["Aggression", "Withdrawal"]
+    "precautions": ["Aggression", "Respiratory"]
   },
   {
     "name": "Raptor Ron",
     "updated": "07/07/18 8:18PM",
     "unit": "Long Term Care",
     "obsLevel": "Q15",
-    "precautions": ["Aggression", "Seizure", "Respiratory"]
+    "precautions": ["Self-Mutilation", "Seizure", "Respiratory"]
   }
 ]

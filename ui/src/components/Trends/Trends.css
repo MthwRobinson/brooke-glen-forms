@@ -16,4 +16,8 @@ h4 {
 
 hr {
   border-color: black;
-} 
+}
+
+.plot-container {
+  margin: auto;
+}
