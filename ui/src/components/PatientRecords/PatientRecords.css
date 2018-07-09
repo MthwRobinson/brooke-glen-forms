@@ -9,7 +9,7 @@
 }
 
 .patient-table {
-  max-height: 470px;
+  max-height: 400px;
   overflow-y: scroll;
 }
 

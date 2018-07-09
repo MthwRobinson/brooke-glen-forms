@@ -50,10 +50,10 @@ class Trends extends Component {
           ]}
           layout={{
               width: 900, 
-              height: 600, 
+              height: 500, 
               title: 'Precautions in the Patient Population',
-            showLegend: false,
-            yaxis: { tickformat: 'd' }
+              showLegend: false,
+              yaxis: { tickformat: 'd' }
             
           }}
           config={{staticPlot:true}}
