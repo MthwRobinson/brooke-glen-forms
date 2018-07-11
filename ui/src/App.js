@@ -10,6 +10,7 @@ import 'react-sliding-pane/dist/react-sliding-pane.css';
 import Header from './components/Header/Header';
 import Home from './components/Home/Home';
 import MenuContent from './components/MenuContent/MenuContent';
+import PatientRecord from './components/PatientRecord/PatientRecord';
 import PatientRecords from './components/PatientRecords/PatientRecords';
 import Trends from './components/Trends/Trends';
 
@@ -18,7 +19,7 @@ class App extends Component {
     super(props);
     this.state = {
       isPaneOpen: false,
-      view: 'home'
+      view: 'patientRecord'
     };
   }
   
@@ -59,6 +60,8 @@ class App extends Component {
       body = <PatientRecords />
     } else if(this.state.view==='trends'){
       body = <Trends />
+    } else if(this.state.view==='patientRecord'){
+      body = <PatientRecord />
     }
 
     return (

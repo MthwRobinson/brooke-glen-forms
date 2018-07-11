@@ -1,0 +1,30 @@
+.PatientRecord {
+  padding-left: 5%;
+  padding-right: 5%;
+  overflow-y: scroll;
+  padding-bottom: 30px;
+}
+
+h2 {
+  line-height: 80%;
+}
+
+h4 {
+  line-height: 5%;
+  padding-left: 20px;
+}
+
+hr {
+  border-color: black;
+}
+
+.record-tabs {
+  margin-top: 22px;
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
+.record-tab, .record-tab:hover {
+  color: black;
+  font-size: 18px;
+  text-decoration: none;
+}
