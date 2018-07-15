@@ -43,4 +43,16 @@ hr {
 
 .exit-button {
   color: #666666;
+  cursor: pointer;
+}
+
+.edit-button {
+  color: #666666;
+  cursor: pointer;
+}
+
+.patient-form {
+  padding-left: 20px;
+  max-height: 400px;
+  overflow-y: scroll;
 }

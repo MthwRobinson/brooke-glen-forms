@@ -3,6 +3,9 @@ import { Col, Nav, NavItem, Row } from 'react-bootstrap';
 
 import './PatientRecord.css';
 
+import CrisisPlan from './../CrisisPlan/CrisisPlan';
+import ObservationRecord from './../ObservationRecord/ObservationRecord';
+
 class PatientRecord extends Component {
   constructor(props) {
     super(props);
@@ -44,8 +47,27 @@ class PatientRecord extends Component {
     );
   }
 
+  renderBody = () => {
+    let body = null;
+    if(this.state.activeTab==='crisisPlan'){
+      body = (
+        <div className='patient-form'>
+          <CrisisPlan />
+        </div>
+      );
+    } else if(this.state.activeTab==='obsRecord'){
+      body = (
+        <div className='patientForm'>
+          <ObservationRecord />
+        </div>
+      );
+    }
+    return body;
+  }
+
   render() {
     let patientInfo = this.renderPatientInfo();
+    let body = this.renderBody();
 
     return (
       <div className="PatientRecord">
@@ -61,23 +83,28 @@ class PatientRecord extends Component {
           <Col xm={12} sm={12} md={4} lg={4}>
             {patientInfo}
           </Col>
-          <Col xm={8} sm={8} md={8} lg={8}>
-            <Nav 
-              className='record-tabs' 
-              bsStyle="tabs" 
-              activeKey={this.state.activeTab} 
-            >
-              <NavItem 
-                eventKey="crisisPlan"
-                onClick={()=>this.selectHandler('crisisPlan')}
-                className='record-nav-item'
-              ><span className='record-tab'>Crisis Plan</span></NavItem>
-              <NavItem 
-                eventKey="obsRecord"
-                onClick={()=>this.selectHandler('obsRecord')}
-                className='record-nav-item'
-              ><span className='record-tab'>Observation Record</span></NavItem>
-            </Nav>
+          <Col xm={12} sm={12} md={8} lg={8}>
+            <Row>
+              <Nav 
+                className='record-tabs' 
+                bsStyle="tabs" 
+                activeKey={this.state.activeTab} 
+              >
+                <NavItem 
+                  eventKey="crisisPlan"
+                  onClick={()=>this.selectHandler('crisisPlan')}
+                  className='record-nav-item'
+                ><span className='record-tab'>Crisis Plan</span></NavItem>
+                <NavItem 
+                  eventKey="obsRecord"
+                  onClick={()=>this.selectHandler('obsRecord')}
+                  className='record-nav-item'
+                ><span className='record-tab'>Observation Record</span></NavItem>
+              </Nav>
+            </Row>
+            <Row>
+              {body}
+            </Row>
           </Col>
         </Row>
       </div>
