@@ -16,7 +16,7 @@ class PatientCard extends Component {
           />
         </Col>
         <Col xs={12} sm={12} md={8} lg={9}>
-          <div className='patient-info'>
+          <div className='patient-record-data'>
             <b>Name:</b> {this.props.name}<br/>
             <b>Updated:</b> {this.props.updated}<br/>
             <b>Unit:</b> {this.props.unit}<br/>

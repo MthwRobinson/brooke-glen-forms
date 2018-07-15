@@ -28,3 +28,15 @@ hr {
   font-size: 18px;
   text-decoration: none;
 }
+
+.patient-record-data {
+  padding-top: 38px;
+  padding-left: 20px;
+  font-size: 20px;
+}
+
+.patient-metadata {
+  font-size: 18px;
+  padding-top: 10px;
+  padding-left: 7px;
+}
