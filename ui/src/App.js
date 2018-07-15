@@ -14,12 +14,21 @@ import PatientRecord from './components/PatientRecord/PatientRecord';
 import PatientRecords from './components/PatientRecords/PatientRecords';
 import Trends from './components/Trends/Trends';
 
+const PATIENTS = require('./data/dummyPatients.json');
+
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       isPaneOpen: false,
-      view: 'patientRecord'
+      view: 'patientRecord',
+      currentPatient: {
+        name: PATIENTS[0].name,
+        updated: PATIENTS[0].updated,
+        unit: PATIENTS[0].unit,
+        obsLevel: PATIENTS[0].obsLevel,
+        precautions: PATIENTS[0].precautions
+      }
     };
   }
   
@@ -61,7 +70,13 @@ class App extends Component {
     } else if(this.state.view==='trends'){
       body = <Trends />
     } else if(this.state.view==='patientRecord'){
-      body = <PatientRecord />
+      body = <PatientRecord 
+              name={this.state.currentPatient.name}
+              updated={this.state.currentPatient.updated}
+              unit={this.state.currentPatient.unit}
+              obsLevel={this.state.currentPatient.obsLevel}
+              precautions={this.state.currentPatient.precautions}
+            />
     }
 
     return (

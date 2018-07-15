@@ -3,8 +3,6 @@ import { Col, Nav, NavItem, Row } from 'react-bootstrap';
 
 import './PatientRecord.css';
 
-const PATIENTS = require('./../../data/dummyPatients.json');
-
 class PatientRecord extends Component {
   constructor(props) {
     super(props);
@@ -18,7 +16,7 @@ class PatientRecord extends Component {
   }
 
   renderPatientInfo = () => {
-    const precautionsText = PATIENTS[0].precautions.join(', ');
+    const precautionsText = this.props.precautions.join(', ');
     return(
       <div>
         <div className='patient-record-data hidden-sm hidden-xs'>
@@ -28,18 +26,18 @@ class PatientRecord extends Component {
               alt='placeholder'
             /><br/>
           <div className='patient-metadata'>
-            <b>Name:</b> {PATIENTS[0].name}<br/>
-            <b>Updated:</b> {PATIENTS[0].updated}<br/>
-            <b>Unit:</b> {PATIENTS[0].unit}<br/>
-            <b>Obs. Level:</b> {PATIENTS[0].obsLevel}<br/>
+            <b>Name:</b> {this.props.name}<br/>
+            <b>Updated:</b> {this.props.updated}<br/>
+            <b>Unit:</b> {this.props.unit}<br/>
+            <b>Obs. Level:</b> {this.props.obsLevel}<br/>
             <b>Notes:</b> {precautionsText}
           </div>
         </div>
         <div className='patient-metadata hidden-md hidden-lg'>
-          <b>Name:</b> {PATIENTS[0].name}<br/>
-          <b>Updated:</b> {PATIENTS[0].updated}<br/>
-          <b>Unit:</b> {PATIENTS[0].unit}<br/>
-          <b>Obs. Level:</b> {PATIENTS[0].obsLevel}<br/>
+          <b>Name:</b> {this.props.name}<br/>
+          <b>Updated:</b> {this.props.updated}<br/>
+          <b>Unit:</b> {this.props.unit}<br/>
+          <b>Obs. Level:</b> {this.props.obsLevel}<br/>
           <b>Notes:</b> {precautionsText}
         </div>
       </div>
@@ -52,7 +50,7 @@ class PatientRecord extends Component {
     return (
       <div className="PatientRecord">
         <Row>
-          <h2>{PATIENTS[0].name}</h2><hr/>
+          <h2>{this.props.name}</h2><hr/>
           <h4>View and manage patient information.</h4>
         </Row>
         <Row>
