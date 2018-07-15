@@ -29,13 +29,13 @@ hr {
   text-decoration: none;
 }
 
-.patient-record-data {
+.record-data {
   padding-top: 38px;
   padding-left: 20px;
   font-size: 20px;
 }
 
-.patient-metadata {
+.record-metadata {
   font-size: 17px;
   padding-top: 10px;
   padding-left: 7px;

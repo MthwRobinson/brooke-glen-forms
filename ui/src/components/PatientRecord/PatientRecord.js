@@ -19,13 +19,13 @@ class PatientRecord extends Component {
     const precautionsText = this.props.precautions.join(', ');
     return(
       <div>
-        <div className='patient-record-data hidden-sm hidden-xs'>
+        <div className='record-data hidden-sm hidden-xs'>
             <img
               src='/images/placeholder-headshot.png'
               height='260'
               alt='placeholder'
             /><br/>
-          <div className='patient-metadata'>
+          <div className='record-metadata'>
             <b>Name:</b> {this.props.name}<br/>
             <b>Updated:</b> {this.props.updated}<br/>
             <b>Unit:</b> {this.props.unit}<br/>
@@ -33,7 +33,7 @@ class PatientRecord extends Component {
             <b>Notes:</b> {precautionsText}
           </div>
         </div>
-        <div className='patient-metadata hidden-md hidden-lg'>
+        <div className='record-metadata hidden-md hidden-lg'>
           <b>Name:</b> {this.props.name}<br/>
           <b>Updated:</b> {this.props.updated}<br/>
           <b>Unit:</b> {this.props.unit}<br/>

@@ -21,7 +21,7 @@ class App extends Component {
     super(props);
     this.state = {
       isPaneOpen: false,
-      view: 'patientRecord',
+      view: 'home',
       currentPatient: {
         name: PATIENTS[0].name,
         updated: PATIENTS[0].updated,
@@ -49,6 +49,19 @@ class App extends Component {
     this.closeMenuHandler();
   }
 
+  selectHandler = (name, updated, unit, obsLevel, precautions) => {
+    this.setState({
+      view: 'patientRecord',
+      currentPatient: {
+        name: name,
+        updated: updated,
+        unit: unit,
+        obsLevel: obsLevel,
+        precautions: precautions
+      }
+    })
+  }
+
   render() {
     let menu = (
       <div ref={ref => this.el = ref}>
@@ -64,9 +77,19 @@ class App extends Component {
 
     let body = null;
     if(this.state.view==='home'){
-      body = <Home />
+      body = <Home 
+              selectPatient={
+                (name, updated, unit, obsLevel, precautions) => 
+                this.selectHandler(name, updated, unit, obsLevel, precautions)
+              }
+            />
     } else if(this.state.view==='patientRecords'){
-      body = <PatientRecords />
+      body = <PatientRecords
+              selectPatient={
+                (name, updated, unit, obsLevel, precautions) => 
+                this.selectHandler(name, updated, unit, obsLevel, precautions)
+              }
+            />
     } else if(this.state.view==='trends'){
       body = <Trends />
     } else if(this.state.view==='patientRecord'){
