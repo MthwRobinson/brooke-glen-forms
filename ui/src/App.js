@@ -22,6 +22,7 @@ class App extends Component {
     this.state = {
       isPaneOpen: false,
       view: 'home',
+      lastView: 'home',
       currentPatient: {
         name: PATIENTS[0].name,
         updated: PATIENTS[0].updated,
@@ -46,10 +47,13 @@ class App extends Component {
 
   viewChangeHandler = (view) => {
     this.setState({ view: view });
+    if(view==='home' || view==='patientRecords'){
+      this.setState({ lastView: view });
+    }
     this.closeMenuHandler();
   }
 
-  selectHandler = (name, updated, unit, obsLevel, precautions) => {
+  selectPatientHandler = (name, updated, unit, obsLevel, precautions) => {
     this.setState({
       view: 'patientRecord',
       currentPatient: {
@@ -60,6 +64,10 @@ class App extends Component {
         precautions: precautions
       }
     })
+  }
+
+  exitHandler = () => {
+    this.setState({ view: this.state.lastView });
   }
 
   render() {
@@ -80,14 +88,14 @@ class App extends Component {
       body = <Home 
               selectPatient={
                 (name, updated, unit, obsLevel, precautions) => 
-                this.selectHandler(name, updated, unit, obsLevel, precautions)
+                this.selectPatientHandler(name, updated, unit, obsLevel, precautions)
               }
             />
     } else if(this.state.view==='patientRecords'){
       body = <PatientRecords
               selectPatient={
                 (name, updated, unit, obsLevel, precautions) => 
-                this.selectHandler(name, updated, unit, obsLevel, precautions)
+                this.selectPatientHandler(name, updated, unit, obsLevel, precautions)
               }
             />
     } else if(this.state.view==='trends'){
@@ -99,6 +107,7 @@ class App extends Component {
               unit={this.state.currentPatient.unit}
               obsLevel={this.state.currentPatient.obsLevel}
               precautions={this.state.currentPatient.precautions}
+              exit={()=>this.exitHandler()}
             />
     }
 

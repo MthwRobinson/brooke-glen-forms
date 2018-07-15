@@ -50,7 +50,11 @@ class PatientRecord extends Component {
     return (
       <div className="PatientRecord">
         <Row>
-          <h2>{this.props.name}</h2><hr/>
+          <h2>
+            <i className='fa fa-times pull-right exit-button'
+               onClick={()=>this.props.exit()}
+             ></i>
+            {this.props.name}</h2><hr/>
           <h4>View and manage patient information.</h4>
         </Row>
         <Row>
