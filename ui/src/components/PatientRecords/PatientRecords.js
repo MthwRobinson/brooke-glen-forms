@@ -48,7 +48,13 @@ class PatientRecords extends Component {
           <tbody>
             {PATIENTS.map((patient, index) => {
               return(
-              <tr>
+              <tr onClick={()=>this.props.selectPatient(
+                patient.name,
+                patient.updated,
+                patient.unit,
+                patient.obsLevel,
+                patient.precautions
+              )}>
                 <th>{patient.name}</th>
                 <th>{patient.updated}</th>
                 <th>{patient.unit}</th>
