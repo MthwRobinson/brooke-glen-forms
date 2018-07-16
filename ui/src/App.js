@@ -21,7 +21,7 @@ class App extends Component {
     super(props);
     this.state = {
       isPaneOpen: false,
-      view: 'patientRecord',
+      view: 'home',
       lastView: 'home',
       currentPatient: {
         name: PATIENTS[0].name,

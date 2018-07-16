@@ -57,7 +57,7 @@ class PatientRecord extends Component {
       );
     } else if(this.state.activeTab==='obsRecord'){
       body = (
-        <div className='patientForm'>
+        <div className='patient-form'>
           <ObservationRecord />
         </div>
       );
