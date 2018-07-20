@@ -1,0 +1,14 @@
+#base image
+FROM python:3.6.5-alpine
+
+# set working directory
+WORKDIR /usr/src/app
+
+# add and install requirements
+COPY bg_forms /user/src/app/bg_forms
+COPY ./setup.py /usr/src/app
+RUN pip install -e .
+
+# run server
+WORKDIR /usr/src/app/bg_forms
+CMD python manage.py run -h 0.0.0.0

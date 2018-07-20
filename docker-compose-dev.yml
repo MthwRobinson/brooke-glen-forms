@@ -1,0 +1,16 @@
+version: '3.6'
+
+services:
+
+  brooke-glen-api:
+    build:
+      context: ./services
+      dockerfile: Dockerfile-dev
+    volumes:
+      - './services:/usr/src/app'
+    ports:
+      - 5001:5000
+    environment:
+      - FLASK_APP=bg_forms/app.py
+      - FLASK_ENV=development
+      - APP_SETTING=bg_forms.config.DevelopmentConfig
