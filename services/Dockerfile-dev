@@ -1,6 +1,12 @@
 #base image
 FROM python:3.6.5-alpine
 
+# install dependencies
+RUN apk update && \
+  apk add --virtual build-deps gcc g++ python-dev musl-dev && \
+  apk add postgresql-dev && \
+  apk add netcat-openbsd
+
 # set working directory
 WORKDIR /usr/src/app
 
@@ -9,6 +15,12 @@ COPY bg_forms /user/src/app/bg_forms
 COPY ./setup.py /usr/src/app
 RUN pip install -e .
 
+# add entrypoint.sh
+COPY ./entrypoint.sh /usr/src/app/entrypoint.sh
+RUN ["chmod", "+x", "/usr/src/app/entrypoint.sh"]
+
 # run server
+CMD ["/usr/src/app/entrypoint.sh"]
 WORKDIR /usr/src/app/bg_forms
 CMD python manage.py run -h 0.0.0.0
+

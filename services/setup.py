@@ -1,7 +1,10 @@
 from setuptools import setup, find_packages
 
 reqs = [
-    'flask'
+    'daiquiri',
+    'flask',
+    'pandas',
+    'psycopg2'
 ]
 
 test_reqs = ['pytest', 'pytest-sugar', 'pytest-cov', 'pylint']
