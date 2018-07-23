@@ -14,6 +14,9 @@ class DBOps(object):
     def __init__(self, environment='DEV'):
         daiquiri.setup(level=LOGGING.INFO)
         self.logger = daiquiri.getLogger(__name__)
+
+        self.path = os.path.dirname(os.path.realpath(__file__))
+        self.sql_path = self.path + '/../../../database'
         self.conn = self.connect()
         
     def connect():
@@ -31,3 +34,19 @@ class DBOps(object):
             dbname=pg_db
         )
         return connection
+
+    def initialize_tables():
+        """ 
+        Builds table in the database using the table
+        definitions in the database/tables folder
+        """
+        path = self.sql_path + 'tables/'
+        files = os.listdir(path)
+        for f in files:
+            if f.endswith('.sql'):
+                filename = path + f
+                with open(filename, 'r'):
+                    sql = f.read()
+                with self.connection.cursor() as cursor:
+                    cursor.execute(sql)
+                self.connection.commit()
