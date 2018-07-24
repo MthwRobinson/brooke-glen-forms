@@ -2,7 +2,6 @@ import logging
 
 import click
 import daiquiri
-from flask.cli import FlaskGroup
 
 from bg_forms.app import app
 from bg_forms.dbops import DBOps
@@ -11,8 +10,6 @@ from bg_forms.configuration import list_environments
 daiquiri.setup(level=logging.INFO)
 LOGGER = daiquiri.getLogger(__name__)
 
-cli = FlaskGroup(app)
-
 @click.group()
 def main():
     """
@@ -20,11 +17,6 @@ def main():
     To learn more about a command, use the --help flag
     """
     pass
-
-@click.command('launch', help='Launches the app')
-def launch():
-    """ Launches the API on localhost """
-    cli()
 
 @click.command()
 def initialize_database():
