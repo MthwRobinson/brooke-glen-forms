@@ -22,5 +22,5 @@ RUN ["chmod", "+x", "/usr/src/app/entrypoint.sh"]
 # run server
 CMD ["/usr/src/app/entrypoint.sh"]
 WORKDIR /usr/src/app/bg_forms
-CMD python manage.py run -h 0.0.0.0
+CMD python /usr/src/app/bg_forms/manage.py run -h 0.0.0.0
 CMD bg_forms initialize_database

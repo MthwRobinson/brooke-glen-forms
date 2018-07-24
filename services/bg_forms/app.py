@@ -5,12 +5,7 @@ from flask import Flask, jsonify
 from bg_forms.dbops import DBOps
 
 app = Flask(__name__)
-app_settings = os.getenv('APP_SETTINGS')
-app.config.from_object(app_settings)
-
-# ENVIRONMENT = os.getenv('APP_ENVIRONMENT')
-ENVIRONMENT = 'DEV'
-
+ENVIRONMENT = os.getenv('APP_ENVIRONMENT')
 
 @app.route('/service/test', methods=['GET'])
 def test():
@@ -25,6 +20,7 @@ def get_patient(patient_id):
     """ Fetches a patient from the database """
     dbops = DBOps(ENVIRONMENT)
     patient = dbops.get_patient(patient_id)
+    patient['active'] = int(patient['active'])
     return jsonify(patient)
 
 @app.route('/service/patient/<patient_id>', methods=['DELETE'])

@@ -76,15 +76,16 @@ class DBOps(object):
             patient['unit'],
             patient['obs_level'],
             patient['precautions'],
+            patient['active'],
             patient['updated_date'],
             patient['created_date']
         )
         sql = """
             INSERT INTO {schema}.patients
             (patient_id, first_name, last_name, unit,
-            obs_level, precautions, updated_date, created_date)
+            obs_level, precautions, active, updated_date, created_date)
             VALUES 
-            (%s, %s, %s, %s, %s, %s, %s, %s)
+            (%s, %s, %s, %s, %s, %s, %s, %s, %s)
         """.format(schema=self.pg_schema)
         with self.connection.cursor() as cursor:
             cursor.execute(sql, values)
@@ -110,6 +111,7 @@ class DBOps(object):
                 unit = '{unit}',
                 obs_level = '{obs_level}',
                 precautions = {precautions},
+                active = {active}
                 updated_date = '{updated_date}'
             WHERE patient_id = '{patient_id}'
         """.format(
@@ -119,6 +121,7 @@ class DBOps(object):
             unit=patient['unit'],
             obs_level=patient['obs_level'],
             precautions=self.format_array(patient['precautions']),
+            active=str(patient['active']).lower(),
             updated_date=patient['updated_date'],
             patient_id=patient['patient_id']
         )
@@ -154,6 +157,7 @@ class DBOps(object):
         for patient in patients:
             patient['first_name'] = patient['name'].split(' ')[0]
             patient['last_name'] = patient['name'].split(' ')[1]
+            patient['active'] = True
             self.create_patient(patient)
 
 

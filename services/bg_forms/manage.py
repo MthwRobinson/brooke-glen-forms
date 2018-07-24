@@ -1,5 +1,7 @@
 from flask.cli import FlaskGroup
 
+from bg_forms.app import app
+
 cli = FlaskGroup(app)
 
 if __name__ == '__main__':
