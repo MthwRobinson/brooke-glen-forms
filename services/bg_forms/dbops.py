@@ -17,7 +17,7 @@ class DBOps(object):
         self.logger = daiquiri.getLogger(__name__)
 
         self.path = os.path.dirname(os.path.realpath(__file__))
-        self.sql_path = self.path + '/../../../database'
+        self.sql_path = self.path + '/../../database'
 
         self.env = environment
         self.pg_schema = get_config('PG_SCHEMA', self.env)
