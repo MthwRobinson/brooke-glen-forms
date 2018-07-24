@@ -6,11 +6,11 @@ services:
     container_name: brooke-glen
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile-dev
     volumes:
       - '.:/usr/src/app'
       - '/usr/src/app/node_modules'
     ports:
-     - '3000:3000'
+     - '3001:3000'
     environment:
       - NODE_ENV=development
