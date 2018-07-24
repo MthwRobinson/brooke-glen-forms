@@ -39,11 +39,16 @@ class DBOps(object):
         )
         return connection
 
-    def initialize_tables(self):
+    def initialize_database(self):
         """ 
         Builds table in the database using the table
         definitions in the database/tables folder
         """
+        sql = "CREATE SCHEMA IF NOT EXISTS %s"%(self.pg_schema)
+        with self.connection.cursor() as cursor:
+            cursor.execute(sql)
+        self.connection.commit()
+
         path = self.sql_path + '/tables/'
         files = os.listdir(path)
         for file_ in files:

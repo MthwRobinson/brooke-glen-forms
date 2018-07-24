@@ -4,6 +4,10 @@ def get_config(variable, env):
     """ Pulls a configuration for the selected environment """
     return configs[env][variable]
 
+def list_environments():
+    """ List all of the available environments """
+    return list(configs.keys())
+
 configs = {
     'DEV': {
         'PG_HOST': 'localhost',

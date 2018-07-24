@@ -1,6 +1,7 @@
 from setuptools import setup, find_packages
 
 reqs = [
+    'click',
     'daiquiri',
     'flask',
     'gunicorn',
@@ -22,6 +23,6 @@ setup(
         'test': test_reqs
     },
     entry_points = {
-        'console_scripts':'bg_forms=bg_forms.manage:cli'
+        'console_scripts':'bg_forms=bg_forms.cli:main'
     }
 )
