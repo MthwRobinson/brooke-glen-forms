@@ -47,3 +47,10 @@ def test_get_patients():
     patients = dbops.get_all_patients()
     assert type(patients) == list
     assert len(patients) > 0
+
+def test_precaution_totals():
+    dbops = DBOps(ENV)
+    totals = dbops.get_precaution_totals()
+    assert type(totals) == dict
+    for key in totals:
+        assert type(totals[key]) == int

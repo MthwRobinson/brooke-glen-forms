@@ -150,6 +150,19 @@ class DBOps(object):
         patients = [dict(df.loc[i]) for i in df.index]
         return patients
 
+    def get_precaution_totals(self):
+        """ Aggregates a count for each precaution """
+        patients = self.get_all_patients()
+        precautions = [x for x in df['precautions']]
+        totals = {}
+        for list_ in precautions:
+            for precaution in list_:
+                if precaution not in totals:
+                    totals[precaution] = 1
+                else:
+                    totals[precaution] += 1
+        return totals
+
     def format_array(self, array):
         """ Formats a Python array for insertion into postgres """
         pg_array = str(array).replace("'",'"')
