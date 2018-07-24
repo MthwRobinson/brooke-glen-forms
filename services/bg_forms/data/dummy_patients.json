@@ -3,98 +3,98 @@
     "name": "John Deer",
     "updated": "07/07/18 8:18PM",
     "unit": "Long Term Care",
-    "obsLevel": "Q15",
+    "obs_level": "Q15",
     "precautions": ["Fall", "Aggression", "Seizure", "Withdrawal", "Respiratory"]
   },
   {
     "name": "Tom Cruise",
     "updated": "07/06/18 6:14PM",
     "unit": "Long Term Care",
-    "obsLevel": "Q15",
+    "obs_level": "Q15",
     "precautions": ["Fall", "Homocide"]
   },
   {
     "name": "Arnold Schwartzenegger",
     "updated": "07/07/18 5:22PM",
     "unit": "Short Term Care",
-    "obsLevel": "1:1",
+    "obs_level": "1:1",
     "precautions": ["Elopement"]
   },
   {
     "name": "Jane Fonda",
     "updated": "07/07/18 7:56PM",
     "unit": "Long Term Care",
-    "obsLevel": "Q15",
+    "obs_level": "Q15",
     "precautions": ["Self-Mutilation", "Respiratory"]
   },
   {
     "name": "Natalie Portman",
     "updated": "07/07/18 8:36PM",
     "unit": "Short Term Care",
-    "obsLevel": "CPAP",
+    "obs_level": "CPAP",
     "precautions": ["Withdrawal", "Program Separately"]
   },
   {
     "name": "Bruce Willis",
     "updated": "07/07/18 7:42PM",
     "unit": "Long Term Care",
-    "obsLevel": "CPAP",
+    "obs_level": "CPAP",
     "precautions": ["Fall"]
   },
   {
     "name": "Taylor Swift",
     "updated": "07/07/18 7:53PM",
     "unit": "Long Term Care",
-    "obsLevel": "Q15",
+    "obs_level": "Q15",
     "precautions": ["Seizure"]
   },
   {
     "name": "King Kong",
     "updated": "07/07/18 8:18PM",
     "unit": "Long Term Care",
-    "obsLevel": "Q15",
+    "obs_level": "Q15",
     "precautions": ["Withdrawal"]
   },
   {
     "name": "Godzilla McLizard",
     "updated": "07/07/18 8:23PM",
     "unit": "Short Term Care",
-    "obsLevel": "1:1",
+    "obs_level": "1:1",
     "precautions": ["Respiratory"]
   },
   {
     "name": "Dinosaur Dan",
     "updated": "07/07/18 8:18PM",
     "unit": "Long Term Care",
-    "obsLevel": "Q15",
+    "obs_level": "Q15",
     "precautions": ["Self-Mutilation", "Seizure"]
   },
   {
     "name": "Trex Tom",
     "updated": "07/07/18 8:18PM",
     "unit": "Long Term Care",
-    "obsLevel": "1:1",
+    "obs_level": "1:1",
     "precautions": []
   },
   {
     "name": "Stegasaurus Steven",
     "updated": "07/07/18 8:18PM",
     "unit": "Long Term Care",
-    "obsLevel": "Q15",
+    "obs_level": "Q15",
     "precautions": ["Homocide"]
   },
   {
     "name": "Brontosaurus Bob",
     "updated": "07/07/18 8:18PM",
     "unit": "Short Term Care",
-    "obsLevel": "CPAP",
+    "obs_level": "CPAP",
     "precautions": ["Aggression", "Respiratory"]
   },
   {
     "name": "Raptor Ron",
     "updated": "07/07/18 8:18PM",
     "unit": "Long Term Care",
-    "obsLevel": "Q15",
+    "obs_level": "Q15",
     "precautions": ["Self-Mutilation", "Seizure", "Respiratory"]
   }
 ]

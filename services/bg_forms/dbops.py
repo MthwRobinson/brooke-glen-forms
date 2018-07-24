@@ -1,6 +1,7 @@
 """ Connects to the postgres database
 and performs operatoins on tables """
 import datetime
+import json
 import logging
 import os
 
@@ -51,7 +52,7 @@ class DBOps(object):
             cursor.execute(sql)
         self.connection.commit()
 
-        path = self.sql_path + '/tables/'
+        path = self.path + '/sql/'
         files = os.listdir(path)
         for file_ in files:
             if file_.endswith('.sql'):
@@ -64,7 +65,7 @@ class DBOps(object):
 
     def create_patient(self, patient):
         """ Inserts patient info into the database """
-        if not patient['patient_id']:
+        if 'patiend_id' not in patient:
             patient['patient_id'] = uuid.uuid4().hex
         patient['updated_date'] = datetime.datetime.now()
         patient['created_date'] = datetime.datetime.now()
@@ -144,4 +145,16 @@ class DBOps(object):
         pg_array = pg_array.replace(']','}')
         pg_array = "'" + pg_array + "'"
         return pg_array
+
+    def load_data(self):
+        """ Loads dummy data into the database """
+        filename = self.path + '/data/dummy_patients.json'
+        with open(filename, 'r') as f:
+            patients = json.load(f)
+        for patient in patients:
+            patient['first_name'] = patient['name'].split(' ')[0]
+            patient['last_name'] = patient['name'].split(' ')[1]
+            self.create_patient(patient)
+
+
 

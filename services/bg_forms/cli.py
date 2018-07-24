@@ -22,10 +22,11 @@ def main():
 def initialize_database():
     environments = list_environments()
     for env in environments:
-        dbops = DBOps(env)
-        msg = 'Initializing database, ENV: %s, SCHEMA: %s'%(env, dbops.pg_schema)
-        LOGGER.info(msg)
-        dbops.initialize_database()
+        if env != 'LOCAL':
+            dbops = DBOps(env)
+            msg = 'Initializing database, ENV: %s, SCHEMA: %s'%(env, dbops.pg_schema)
+            LOGGER.info(msg)
+            dbops.initialize_database()
 main.add_command(initialize_database)
 
 if __name__ == '__main__':

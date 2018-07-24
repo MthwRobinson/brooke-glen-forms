@@ -10,25 +10,33 @@ def list_environments():
 
 configs = {
     'DEV': {
-        'PG_HOST': 'localhost',
-        'PG_PORT': 5435,
+        'PG_HOST': 'brooke-glen-db',
+        'PG_PORT': 5432,
         'PG_DATABASE': 'bg_forms_dev',
         'PG_USER': 'postgres',
         'PG_PASS': 'postgres',
         'PG_SCHEMA': 'bg_forms'
     },
     'TEST': {
-        'PG_HOST': 'localhost',
-        'PG_PORT': 5435,
+        'PG_HOST': 'brooke-glen-db',
+        'PG_PORT': 5432,
         'PG_DATABASE': 'bg_forms_test',
         'PG_USER': 'postgres',
         'PG_PASS': 'postgres',
         'PG_SCHEMA': 'bg_forms'
     },
     'PROD': {
+        'PG_HOST': 'brooke-glen-db',
+        'PG_PORT': 5432,
+        'PG_DATABASE': 'bg_forms_prod',
+        'PG_USER': 'postgres',
+        'PG_PASS': 'postgres',
+        'PG_SCHEMA': 'bg_forms'
+    },
+    'LOCAL': {
         'PG_HOST': 'localhost',
         'PG_PORT': 5435,
-        'PG_DATABASE': 'bg_forms_prod',
+        'PG_DATABASE': 'bg_forms_dev',
         'PG_USER': 'postgres',
         'PG_PASS': 'postgres',
         'PG_SCHEMA': 'bg_forms'
