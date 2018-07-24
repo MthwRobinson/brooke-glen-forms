@@ -5,7 +5,7 @@ services:
   brooke-glen-api:
     build:
       context: ./services
-      dockerfile: Dockerfile-dev
+      dockerfile: Dockerfile-prod
     volumes:
       - './services:/usr/src/app'
     ports:
@@ -25,15 +25,16 @@ services:
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
-  
-  brooke-glen-ui:
+      - POSTGRES_HOST=localhost
+      - POSTGRES_PORT=5435
+
+  nginx:
     build:
-      context: ./ui
-      dockerfile: Dockerfile-dev
-    volumes:
-      - '.:/usr/src/app'
-      - '/usr/src/app/node_modules'
+      context: ./services/nginx
+      dockerfile: Dockerfile-prod
+    restart: always
     ports:
-     - '3001:3000'
-    environment:
-      - NODE_ENV=development
+      - 80:80
+    depends_on:
+      - brooke-glen-api
+
