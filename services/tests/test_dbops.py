@@ -1,6 +1,6 @@
 import pandas as pd
 
-from bg_forms.dbops.dbops import DBOps
+from bg_forms.dbops import DBOps
 
 def test_init_tables():
     dbops = DBOps('TEST')
