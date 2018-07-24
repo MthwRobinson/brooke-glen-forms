@@ -14,19 +14,19 @@ services:
     environment:
       - NODE_ENV=development
 
-  # brooke-glen-api:
-  #   build:
-  #     context: ./services
-  #     dockerfile: Dockerfile-dev
-  #   volumes:
-  #     - './services:/usr/src/app'
-  #   ports:
-  #     - 5001:5000
-  #   environment:
-  #     - FLASK_APP=bg_forms/app.py
-  #     - FLASK_ENV=development
-  #   depends_on:
-  #     - brooke-glen-db
+  brooke-glen-api:
+    build:
+      context: ./services
+      dockerfile: Dockerfile-dev
+    volumes:
+      - './services:/usr/src/app'
+    ports:
+      - 5001:5000
+    environment:
+      - FLASK_APP=bg_forms/app.py
+      - FLASK_ENV=development
+    depends_on:
+      - brooke-glen-db
 
   brooke-glen-db:
     build:
