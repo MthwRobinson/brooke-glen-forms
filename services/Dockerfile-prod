@@ -14,6 +14,7 @@ WORKDIR /usr/src/app
 COPY bg_forms /user/src/app/bg_forms
 COPY ./setup.py /usr/src/app
 RUN pip install -e .[test]
+RUN py.test --cov=bg_forms
 
 # add entrypoint.sh
 COPY ./entrypoint.sh /usr/src/app/entrypoint.sh
