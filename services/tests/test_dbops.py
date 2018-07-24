@@ -2,8 +2,10 @@ import pandas as pd
 
 from bg_forms.dbops import DBOps
 
+ENV = 'LOCAL'
+
 def test_initialize():
-    dbops = DBOps('TEST')
+    dbops = DBOps(DEV)
     dbops.initialize_database()
     try:
         sql = "SELECT * FROM %s.patients"%(dbops.pg_schema)
@@ -14,7 +16,7 @@ def test_initialize():
     assert table_exists
 
 def test_create_patient():
-    dbops = DBOps('TEST')
+    dbops = DBOps(ENV)
     patient = {
         'patient_id': 'test123',
         'first_name': 'firstname',
@@ -39,3 +41,9 @@ def test_create_patient():
     dbops.delete_patient(patient['patient_id'])
     test_patient = dbops.get_patient(patient['patient_id'])
     assert test_patient == None
+
+def test_get_patients():
+    dbops = DBOps(ENV)
+    patients = dbops.get_all_patients()
+    assert type(patients) == list
+    assert len(patients) > 0

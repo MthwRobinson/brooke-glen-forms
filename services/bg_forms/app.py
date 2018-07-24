@@ -48,3 +48,11 @@ def update_patient(patient_id):
         dbops.update_patient(patient)
         response = {'status': 'patient updated'}
     return jsonify(response)
+
+@app.route('/service/patients', methods=['GET'])
+def get_patients():
+    """ Pulls all active patients from the database """
+    dbops = DBOps(ENVIRONMENT)
+    patients = dbops.get_all_patients()
+    for patient in patients:
+        patient['active'] = int(patient['active'])

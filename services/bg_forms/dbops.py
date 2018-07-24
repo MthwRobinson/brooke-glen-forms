@@ -141,6 +141,15 @@ class DBOps(object):
         else:
             return None
 
+    def get_all_patients(self):
+        """ Fetches all active patients """
+        sql = """
+            SELECT * FROM {schema}.patients
+            WHERE active = true
+        """
+        patients = [dict(df.loc[i]) for i in df.index]
+        return patients
+
     def format_array(self, array):
         """ Formats a Python array for insertion into postgres """
         pg_array = str(array).replace("'",'"')
