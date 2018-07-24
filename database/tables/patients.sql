@@ -4,5 +4,10 @@ CREATE TABLE IF NOT EXISTS {schema}.patients (
   last_name text,
   unit text,
   obs_level text,
-  precautions text[]
-)
+  precautions text[],
+  active boolean,
+  updated_date timestamp,
+  created_date timestamp
+);
+
+CREATE UNIQUE INDEX IF NOT EXISTS patient_index ON {schema}.patients (patient_id);
