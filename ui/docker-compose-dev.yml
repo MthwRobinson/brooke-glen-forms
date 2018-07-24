@@ -3,7 +3,7 @@ version: '3.5'
 services:
 
   brooke-glen:
-    container_name: brooke-glen
+    container_name: brooke-glen-ui-dev
     build:
       context: .
       dockerfile: Dockerfile-dev
