@@ -7,6 +7,7 @@ import os
 import daiquiri
 import pandas as pd
 import psycopg2
+import uuid
 
 from bg_forms.configuration import get_config
 import bg_forms.configuration as conf
@@ -63,6 +64,8 @@ class DBOps(object):
 
     def create_patient(self, patient):
         """ Inserts patient info into the database """
+        if not patient['patient_id']:
+            patient['patient_id'] = uuid.uuid4().hex
         patient['updated_date'] = datetime.datetime.now()
         patient['created_date'] = datetime.datetime.now()
         values = (

@@ -6,7 +6,8 @@ reqs = [
     'flask',
     'gunicorn',
     'pandas',
-    'psycopg2'
+    'psycopg2',
+    'uuid'
 ]
 
 test_reqs = ['pytest', 'pytest-sugar', 'pytest-cov', 'pylint']

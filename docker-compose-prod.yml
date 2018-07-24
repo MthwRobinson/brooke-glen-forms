@@ -20,6 +20,7 @@ services:
     environment:
       - FLASK_APP=bg_forms/app.py
       - FLASK_ENV=development
+      - APP_ENVIRONMENT=PROD
     depends_on:
       - brooke-glen-db
 
