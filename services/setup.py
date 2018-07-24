@@ -19,5 +19,8 @@ setup(
     install_requires=reqs,
     extras_require={
         'test': test_reqs
+    },
+    entry_points = {
+        'console_scripts':'bg_forms=bg_forms.manage:cli'
     }
 )
