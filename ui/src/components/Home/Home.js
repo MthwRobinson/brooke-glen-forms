@@ -98,13 +98,31 @@ class Home extends Component {
       fourthRow = this.renderCards(5,6);
     }
 
+    let header = null;
+    if(this.state.patients.length>=1){
+      header = (
+        <div>
+          <h2>Welcome back, Eileen!</h2>
+          <hr/>
+          <h4>Your recently viewed patients</h4>
+        </div>
+      );
+    } else {
+      header = (
+        <div>
+          <h2>Welcome, Eileen!</h2>
+          <hr/>
+          <h4>Select a patient from the patient records screen to begin.</h4>
+        </div>
+      );
+    }
+
+
     return (
       <div className="Home">
         <Grid fluid>
           <Row>
-            <h2>Welcome back, Eileen!</h2>
-            <hr/>
-            <h4>Your recently viewed patients</h4>
+            {header}
           </Row>
           {firstRow}
           {secondRow}
