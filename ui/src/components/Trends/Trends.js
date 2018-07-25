@@ -6,50 +6,33 @@ import axios from 'axios';
 
 import './Trends.css';
 
-const PATIENTS = require('./../../data/dummyPatients.json');
-
 class Trends extends Component {
   constructor(props){
     super(props);
     this.state = {
-      counts: {}
+      counts: {},
+      x: [],
+      y: []
     }
   }
 
   componentDidMount(){
-    axios.get('/aggregates/precautions')
+    axios.get('/service/aggregates/precautions')
       .then(res => {
         const counts = res.data;
         this.setState({counts: counts});
-        console.log(this.state.counts);
+        
+        var x = [];
+        var y = [];
+        for(var key in this.state.counts){
+          x.push(key);
+          y.push(this.state.counts[key]);
+        }
+        this.setState({x: x, y: y});
       })
   }
 
-  // aggregateCounts = () => {
-  //   var counts = {};
-  //   for(var i=0; i<PATIENTS.length; i++){
-  //     let patient = PATIENTS[i];
-  //     for(var j=0; j<patient.precautions.length; j++){
-  //       let precaution = patient.precautions[j];
-  //       if(precaution in counts){
-  //         counts[precaution] += 1;
-  //       } else {
-  //         counts[precaution] = 1;
-  //       }
-  //     }
-  //   }
-  //   return counts;
-  // }
-
   render() {
-    // const counts = this.aggregateCounts();
-    var x = [];
-    var y= [];
-    for(var key in this.counts){
-      x.push(key);
-      y.push(this.counts[key]);
-    }
-
     return (
       <div className="Trends">
         <Row>
@@ -62,8 +45,8 @@ class Trends extends Component {
             {
               type: 'bar', 
               marker: {color: '#828f5c'},
-              x: x, 
-              y: y
+              x: this.state.x, 
+              y: this.state.y
             },
           ]}
           layout={{
@@ -83,8 +66,8 @@ class Trends extends Component {
             {
               type: 'bar', 
               marker: {color: '#828f5c'},
-              x: x, 
-              y: y
+              x: this.state.x, 
+              y: this.state.y
             },
           ]}
           layout={{
