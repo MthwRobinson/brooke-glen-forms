@@ -6,8 +6,8 @@ CREATE TABLE IF NOT EXISTS {schema}.patients (
   obs_level text,
   precautions text[],
   active boolean,
-  updated_date timestamp with timezone,
-  created_date timestamp with timezone
+  updated_date timestamp with time zone,
+  created_date timestamp with time zone
 );
 
 CREATE UNIQUE INDEX IF NOT EXISTS patient_index ON {schema}.patients (patient_id);
