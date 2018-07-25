@@ -18,7 +18,7 @@ class Home extends Component {
       })
   }
 
-  renderCards(i,j){
+  renderCards = (i,j) => {
     // Renders the cards in the row screen
     // If there is only one card in the row,
     //  then the second column will be blank
@@ -77,7 +77,7 @@ class Home extends Component {
     );
   }
 
-  render() {
+  renderAllCards = () => {
     // Populate the cards in the home screen
     // The fourth row will only appear when
     //  the screen is rotate long-ways
@@ -98,6 +98,21 @@ class Home extends Component {
       fourthRow = this.renderCards(5,6);
     }
 
+    return(
+      <div>
+        {firstRow}
+        {secondRow}
+        {thirdRow}
+        <div className='hidden-md hidden-lg'>
+          {fourthRow}
+        </div>
+      </div>
+    )
+  }
+
+  renderHeader = () => {
+    // Only display welcome back if a user has
+    //  already view a patient
     let header = null;
     if(this.state.patients.length>=1){
       header = (
@@ -116,7 +131,15 @@ class Home extends Component {
         </div>
       );
     }
+    return header;
+  }
 
+  render() {
+    let header = null;
+    header = this.renderHeader();
+
+    let cards = null;
+    cards = this.renderAllCards();
 
     return (
       <div className="Home">
@@ -124,12 +147,7 @@ class Home extends Component {
           <Row>
             {header}
           </Row>
-          {firstRow}
-          {secondRow}
-          {thirdRow}
-          <div className='hidden-md hidden-lg'>
-            {fourthRow}
-          </div>
+          {cards}
         </Grid>
       </div>
     );
