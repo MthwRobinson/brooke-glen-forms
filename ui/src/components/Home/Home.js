@@ -28,13 +28,13 @@ class Home extends Component {
           <Col xs={6} sm={6} md={6} lg={6}>
             <PatientCard 
               name={this.state.patients[0].name}
-              updated={this.state.patients[0].updated}
+              updated={this.state.patients[0].updated_date}
               unit={this.state.patients[0].unit}
               obsLevel={this.state.patients[0].obs_level}
               precautions={this.state.patients[0].precautions}
               click={()=>this.props.selectPatient(
                 this.state.patients[0].name,
-                this.state.patients[0].updated,
+                this.state.patients[0].updated_date,
                 this.state.patients[0].unit,
                 this.state.patients[0].obs_level,
                 this.state.patients[0].precautions
@@ -53,13 +53,13 @@ class Home extends Component {
           <Col xs={6} sm={6} md={6} lg={6}>
             <PatientCard 
               name={this.state.patients[i].name}
-              updated={this.state.patients[i].updated}
+              updated={this.state.patients[i].updated_date}
               unit={this.state.patients[i].unit}
               obsLevel={this.state.patients[i].obs_level}
               precautions={this.state.patients[i].precautions}
               click={()=>this.props.selectPatient(
                 this.state.patients[i].name,
-                this.state.patients[i].updated,
+                this.state.patients[i].updated_date,
                 this.state.patients[i].unit,
                 this.state.patients[i].obs_level,
                 this.state.patients[i].precautions
@@ -69,13 +69,13 @@ class Home extends Component {
           <Col xs={6} sm={6} md={6} lg={6}>
             <PatientCard 
               name={this.state.patients[j].name}
-              updated={this.state.patients[j].updated}
+              updated={this.state.patients[j].updated_date}
               unit={this.state.patients[j].unit}
               obsLevel={this.state.patients[j].obs_level}
               precautions={this.state.patients[j].precautions}
               click={()=>this.props.selectPatient(
                 this.state.patients[j].name,
-                this.state.patients[j].updated,
+                this.state.patients[j].updated_date,
                 this.state.patients[j].unit,
                 this.state.patients[j].obs_level,
                 this.state.patients[j].precautions
