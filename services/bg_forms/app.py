@@ -56,3 +56,11 @@ def get_patients():
     patients = dbops.get_all_patients()
     for patient in patients:
         patient['active'] = int(patient['active'])
+    return jsonify(patients)
+
+@app.route('/service/aggregates/precautions', methods=['GET'])
+def get_precaution_totals():
+    """ Aggregates the total number for each precaution """
+    dbops = DBOps(ENVIRONMENT)
+    totals = dbops.get_precaution_totals()
+    return jsonify(totals)

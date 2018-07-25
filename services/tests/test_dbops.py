@@ -5,7 +5,7 @@ from bg_forms.dbops import DBOps
 ENV = 'LOCAL'
 
 def test_initialize():
-    dbops = DBOps(DEV)
+    dbops = DBOps(ENV)
     dbops.initialize_database()
     try:
         sql = "SELECT * FROM %s.patients"%(dbops.pg_schema)

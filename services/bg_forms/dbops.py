@@ -69,6 +69,7 @@ class DBOps(object):
             patient['patient_id'] = uuid.uuid4().hex
         patient['updated_date'] = datetime.datetime.now()
         patient['created_date'] = datetime.datetime.now()
+        patient['active'] = True
         values = (
             patient['patient_id'],
             patient['first_name'],
@@ -111,7 +112,7 @@ class DBOps(object):
                 unit = '{unit}',
                 obs_level = '{obs_level}',
                 precautions = {precautions},
-                active = {active}
+                active = {active},
                 updated_date = '{updated_date}'
             WHERE patient_id = '{patient_id}'
         """.format(
@@ -146,14 +147,15 @@ class DBOps(object):
         sql = """
             SELECT * FROM {schema}.patients
             WHERE active = true
-        """
+        """.format(schema=self.pg_schema)
+        df = pd.read_sql(sql, self.connection)
         patients = [dict(df.loc[i]) for i in df.index]
         return patients
 
     def get_precaution_totals(self):
         """ Aggregates a count for each precaution """
         patients = self.get_all_patients()
-        precautions = [x for x in df['precautions']]
+        precautions = [x['precautions'] for x in patients]
         totals = {}
         for list_ in precautions:
             for precaution in list_:
