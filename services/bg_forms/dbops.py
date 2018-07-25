@@ -24,6 +24,7 @@ class DBOps(object):
 
         self.env = environment
         self.pg_schema = get_config('PG_SCHEMA', self.env)
+        self.timezone = get_config('TIMEZONE', self.env)
         self.connection = self.connect()
         
     def connect(self):
@@ -67,8 +68,8 @@ class DBOps(object):
         """ Inserts patient info into the database """
         if 'patiend_id' not in patient:
             patient['patient_id'] = uuid.uuid4().hex
-        patient['updated_date'] = datetime.datetime.now()
-        patient['created_date'] = datetime.datetime.now()
+        patient['updated_date'] = datetime.datetime.now(self.timezone)
+        patient['created_date'] = datetime.datetime.now(self.timezone)
         patient['active'] = True
         values = (
             patient['patient_id'],
@@ -104,7 +105,7 @@ class DBOps(object):
 
     def update_patient(self, patient):
         """ Updates a patient in the database """
-        patient['updated_date'] = datetime.datetime.now()
+        patient['updated_date'] = datetime.datetime.now(self.timezone)
         sql = """
             UPDATE {schema}.patients
             SET first_name = '{first_name}',

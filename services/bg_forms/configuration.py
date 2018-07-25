@@ -1,4 +1,5 @@
 """ Environment configurations for the app """
+import pytz
 
 def get_config(variable, env):
     """ Pulls a configuration for the selected environment """
@@ -15,7 +16,8 @@ configs = {
         'PG_DATABASE': 'bg_forms_dev',
         'PG_USER': 'postgres',
         'PG_PASS': 'postgres',
-        'PG_SCHEMA': 'bg_forms'
+        'PG_SCHEMA': 'bg_forms',
+        'TIMEZONE': pytz.timezone('US/Eastern')
     },
     'TEST': {
         'PG_HOST': 'brooke-glen-db',
@@ -23,7 +25,8 @@ configs = {
         'PG_DATABASE': 'bg_forms_test',
         'PG_USER': 'postgres',
         'PG_PASS': 'postgres',
-        'PG_SCHEMA': 'bg_forms'
+        'PG_SCHEMA': 'bg_forms',
+        'TIMEZONE': pytz.timezone('US/Eastern')
     },
     'PROD': {
         'PG_HOST': 'brooke-glen-db',
@@ -31,7 +34,8 @@ configs = {
         'PG_DATABASE': 'bg_forms_prod',
         'PG_USER': 'postgres',
         'PG_PASS': 'postgres',
-        'PG_SCHEMA': 'bg_forms'
+        'PG_SCHEMA': 'bg_forms',
+        'TIMEZONE': pytz.timezone('US/Eastern')
     },
     'LOCAL': {
         'PG_HOST': 'localhost',
@@ -39,6 +43,7 @@ configs = {
         'PG_DATABASE': 'bg_forms_dev',
         'PG_USER': 'postgres',
         'PG_PASS': 'postgres',
-        'PG_SCHEMA': 'bg_forms'
+        'PG_SCHEMA': 'bg_forms',
+        'TIMEZONE': pytz.timezone('US/Eastern')
     }
 }
