@@ -53,7 +53,6 @@ def get_patients():
     """ Pulls all active patients from the database """
     dbops = DBOps(ENVIRONMENT)
     patients = dbops.get_all_patients()
-    for patient in patients:
     return jsonify(patients)
 
 @app.route('/service/aggregates/precautions', methods=['GET'])
