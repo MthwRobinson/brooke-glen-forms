@@ -8,6 +8,7 @@ import {
   Table,
   Row 
 } from 'react-bootstrap';
+import axios from 'axios';
 
 import './PatientRecords.css';
 
@@ -20,13 +21,22 @@ class PatientRecords extends Component {
       unit: 'All',
       obsLevel: 'All',
       precaution: 'Any',
-      patients: PATIENTS
+      patients: []
     }
 
     this.handleUnit = this.handleUnit.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleObservation = this.handleObservation.bind(this);
     this.handlePrecautions = this.handlePrecautions.bind(this);
+  }
+
+  componentDidMount(){
+    axios.get('/service/patients')
+      .then(res => {
+        const patients = res.data;
+        this.setState({patients: patients});
+        console.log(this.state.patients);
+    })
   }
 
   handleSubmit(event) {

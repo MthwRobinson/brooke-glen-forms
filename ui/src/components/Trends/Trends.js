@@ -1,35 +1,53 @@
 import React, { Component } from 'react';
 import { Row } from 'react-bootstrap';
 import Plot from 'react-plotly.js';
+import axios from 'axios';
+
 
 import './Trends.css';
 
 const PATIENTS = require('./../../data/dummyPatients.json');
 
 class Trends extends Component {
-  aggregateCounts = () => {
-    var counts = {};
-    for(var i=0; i<PATIENTS.length; i++){
-      let patient = PATIENTS[i];
-      for(var j=0; j<patient.precautions.length; j++){
-        let precaution = patient.precautions[j];
-        if(precaution in counts){
-          counts[precaution] += 1;
-        } else {
-          counts[precaution] = 1;
-        }
-      }
+  constructor(props){
+    super(props);
+    this.state = {
+      counts: {}
     }
-    return counts;
   }
 
+  componentDidMount(){
+    axios.get('/aggregates/precautions')
+      .then(res => {
+        const counts = res.data;
+        this.setState({counts: counts});
+        console.log(this.state.counts);
+      })
+  }
+
+  // aggregateCounts = () => {
+  //   var counts = {};
+  //   for(var i=0; i<PATIENTS.length; i++){
+  //     let patient = PATIENTS[i];
+  //     for(var j=0; j<patient.precautions.length; j++){
+  //       let precaution = patient.precautions[j];
+  //       if(precaution in counts){
+  //         counts[precaution] += 1;
+  //       } else {
+  //         counts[precaution] = 1;
+  //       }
+  //     }
+  //   }
+  //   return counts;
+  // }
+
   render() {
-    const counts = this.aggregateCounts();
+    // const counts = this.aggregateCounts();
     var x = [];
     var y= [];
-    for(var key in counts){
+    for(var key in this.counts){
       x.push(key);
-      y.push(counts[key]);
+      y.push(this.counts[key]);
     }
 
     return (

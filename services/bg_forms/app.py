@@ -56,6 +56,7 @@ def get_patients():
     patients = dbops.get_all_patients()
     for patient in patients:
         patient['active'] = int(patient['active'])
+        patient['name'] = patient['first_name'] + ' ' + patient['last_name']
     return jsonify(patients)
 
 @app.route('/service/aggregates/precautions', methods=['GET'])

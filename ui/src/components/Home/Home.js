@@ -1,13 +1,108 @@
 import React, { Component } from 'react';
 import { Grid, Col, Row } from 'react-bootstrap';
+import axios from 'axios';
 
 import './Home.css';
 import PatientCard from './../PatientCard/PatientCard';
 
-const PATIENTS = require('./../../data/dummyPatients.json');
+const patients = require('./../../data/dummyPatients.json');
 
 class Home extends Component {
+  state = {
+    patients: []
+  }
+
+  componentDidMount(){
+    axios.get('/service/patients')
+      .then(res => {
+        const patients = res.data;
+        this.setState({patients: patients });
+      })
+
+  }
+
+  renderCard(){
+    return(
+      <div>
+        <Row>
+          <Col xs={6} sm={6} md={6} lg={6}>
+            <PatientCard 
+              name={this.state.patients[0].name}
+              updated={this.state.patients[0].updated}
+              unit={this.state.patients[0].unit}
+              obsLevel={this.state.patients[0].obs_level}
+              precautions={this.state.patients[0].precautions}
+              click={()=>this.props.selectPatient(
+                this.state.patients[0].name,
+                this.state.patients[0].updated,
+                this.state.patients[0].unit,
+                this.state.patients[0].obs_level,
+                this.state.patients[0].precautions
+              )}
+            />
+          </Col>
+        </Row>
+      </div>
+    );
+  }
+
+  renderCards(i,j){
+    return(
+      <div>
+        <Row>
+          <Col xs={6} sm={6} md={6} lg={6}>
+            <PatientCard 
+              name={this.state.patients[i].name}
+              updated={this.state.patients[i].updated}
+              unit={this.state.patients[i].unit}
+              obsLevel={this.state.patients[i].obs_level}
+              precautions={this.state.patients[i].precautions}
+              click={()=>this.props.selectPatient(
+                this.state.patients[i].name,
+                this.state.patients[i].updated,
+                this.state.patients[i].unit,
+                this.state.patients[i].obs_level,
+                this.state.patients[i].precautions
+              )}
+            />
+          </Col>
+          <Col xs={6} sm={6} md={6} lg={6}>
+            <PatientCard 
+              name={this.state.patients[j].name}
+              updated={this.state.patients[j].updated}
+              unit={this.state.patients[j].unit}
+              obsLevel={this.state.patients[j].obs_level}
+              precautions={this.state.patients[j].precautions}
+              click={()=>this.props.selectPatient(
+                this.state.patients[j].name,
+                this.state.patients[j].updated,
+                this.state.patients[j].unit,
+                this.state.patients[j].obs_level,
+                this.state.patients[j].precautions
+              )}
+            />
+          </Col>
+        </Row>
+      </div>
+    );
+  }
+
   render() {
+    let firstRow = null;
+    if(this.state.patients.length>=2){
+      firstRow = this.renderCards(0,1);
+    } else if (this.state.patients.length===1){
+      firstRow = this.renderCard();
+    }
+    let secondRow = null;
+    if(this.state.patients.length>=4){
+      secondRow = this.renderCards(2,3);
+    }
+    let thirdRow = null;
+    if(this.state.patients.length>=6){
+      thirdRow = this.renderCards(3,4);
+    }
+
     return (
       <div className="Home">
         <Grid fluid>
@@ -16,108 +111,9 @@ class Home extends Component {
             <hr/>
             <h4>Your recently viewed patients</h4>
           </Row>
-          <Row>
-            <Col xs={6} sm={6} md={6} lg={6}>
-              <PatientCard 
-                name={PATIENTS[0].name}
-                updated={PATIENTS[0].updated}
-                unit={PATIENTS[0].unit}
-                obsLevel={PATIENTS[0].obsLevel}
-                precautions={PATIENTS[0].precautions}
-                click={()=>this.props.selectPatient(
-                  PATIENTS[0].name,
-                  PATIENTS[0].updated,
-                  PATIENTS[0].unit,
-                  PATIENTS[0].obsLevel,
-                  PATIENTS[0].precautions
-                )}
-              />
-            </Col>
-            <Col xs={6} sm={6} md={6} lg={6}>
-              <PatientCard 
-                name={PATIENTS[1].name}
-                updated={PATIENTS[1].updated}
-                unit={PATIENTS[1].unit}
-                obsLevel={PATIENTS[1].obsLevel}
-                precautions={PATIENTS[1].precautions}
-                click={()=>this.props.selectPatient(
-                  PATIENTS[1].name,
-                  PATIENTS[1].updated,
-                  PATIENTS[1].unit,
-                  PATIENTS[1].obsLevel,
-                  PATIENTS[1].precautions
-                )}
-              />
-            </Col>
-          </Row>
-          <Row>
-            <Col xs={6} sm={6} md={6} lg={6}>
-              <PatientCard 
-                name={PATIENTS[2].name}
-                updated={PATIENTS[2].updated}
-                unit={PATIENTS[2].unit}
-                obsLevel={PATIENTS[2].obsLevel}
-                precautions={PATIENTS[2].precautions}
-                click={()=>this.props.selectPatient(
-                  PATIENTS[2].name,
-                  PATIENTS[2].updated,
-                  PATIENTS[2].unit,
-                  PATIENTS[2].obsLevel,
-                  PATIENTS[2].precautions
-                )}
-              />
-            </Col>
-            <Col xs={6} sm={6} md={6} lg={6}>
-              <PatientCard 
-                name={PATIENTS[3].name}
-                updated={PATIENTS[3].updated}
-                unit={PATIENTS[3].unit}
-                obsLevel={PATIENTS[3].obsLevel}
-                precautions={PATIENTS[3].precautions}
-                click={()=>this.props.selectPatient(
-                  PATIENTS[3].name,
-                  PATIENTS[3].updated,
-                  PATIENTS[3].unit,
-                  PATIENTS[3].obsLevel,
-                  PATIENTS[3].precautions
-                )}
-              />
-            </Col>
-          </Row>
-          <Row>
-            <Col xs={6} sm={6} md={6} lg={6}>
-              <PatientCard 
-                name={PATIENTS[4].name}
-                updated={PATIENTS[4].updated}
-                unit={PATIENTS[4].unit}
-                obsLevel={PATIENTS[4].obsLevel}
-                precautions={PATIENTS[4].precautions}
-                click={()=>this.props.selectPatient(
-                  PATIENTS[4].name,
-                  PATIENTS[4].updated,
-                  PATIENTS[4].unit,
-                  PATIENTS[4].obsLevel,
-                  PATIENTS[4].precautions
-                )}
-              />
-            </Col>
-            <Col xs={6} sm={6} md={6} lg={6}>
-              <PatientCard 
-                name={PATIENTS[5].name}
-                updated={PATIENTS[5].updated}
-                unit={PATIENTS[5].unit}
-                obsLevel={PATIENTS[5].obsLevel}
-                precautions={PATIENTS[5].precautions}
-                click={()=>this.props.selectPatient(
-                  PATIENTS[5].name,
-                  PATIENTS[5].updated,
-                  PATIENTS[5].unit,
-                  PATIENTS[5].obsLevel,
-                  PATIENTS[5].precautions
-                )}
-              />
-            </Col>
-          </Row>
+          {firstRow}
+          {secondRow}
+          {thirdRow}
         </Grid>
       </div>
     );
