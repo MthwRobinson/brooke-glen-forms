@@ -1,5 +1,6 @@
 """ Connects to the postgres database
 and performs operatoins on tables """
+from copy import deepcopy
 import datetime
 import json
 import logging
@@ -7,7 +8,9 @@ import os
 
 import daiquiri
 import pandas as pd
+from pandas._libs.tslibs.timestamps import Timestamp
 import psycopg2
+import pytz
 import uuid
 
 from bg_forms.configuration import get_config
@@ -20,7 +23,6 @@ class DBOps(object):
         self.logger = daiquiri.getLogger(__name__)
 
         self.path = os.path.dirname(os.path.realpath(__file__))
-        self.sql_path = self.path + '/../../database'
 
         self.env = environment
         self.pg_schema = get_config('PG_SCHEMA', self.env)
@@ -66,7 +68,8 @@ class DBOps(object):
 
     def create_patient(self, patient):
         """ Inserts patient info into the database """
-        if 'patiend_id' not in patient:
+        patient = deepcopy(patient)
+        if 'patient_id' not in patient:
             patient['patient_id'] = uuid.uuid4().hex
         patient['updated_date'] = datetime.datetime.now(self.timezone)
         patient['created_date'] = datetime.datetime.now(self.timezone)
@@ -123,7 +126,7 @@ class DBOps(object):
             unit=patient['unit'],
             obs_level=patient['obs_level'],
             precautions=self.format_array(patient['precautions']),
-            active=str(patient['active']).lower(),
+            active=str(bool(patient['active'])).lower(),
             updated_date=patient['updated_date'],
             patient_id=patient['patient_id']
         )
@@ -139,7 +142,9 @@ class DBOps(object):
         """.format(schema=self.pg_schema, patient_id=patient_id)
         df = pd.read_sql(sql, self.connection)
         if len(df) > 0:
-            return dict(df.loc[0])
+            patient = dict(df.loc[0])
+            patient = self.normalize_patient(patient)
+            return patient
         else:
             return None
 
@@ -151,6 +156,7 @@ class DBOps(object):
         """.format(schema=self.pg_schema)
         df = pd.read_sql(sql, self.connection)
         patients = [dict(df.loc[i]) for i in df.index]
+        patients = [self.normalize_patient(x) for x in patients]
         return patients
 
     def get_precaution_totals(self):
@@ -173,6 +179,23 @@ class DBOps(object):
         pg_array = pg_array.replace(']','}')
         pg_array = "'" + pg_array + "'"
         return pg_array
+
+    def normalize_patient(self, patient):
+        """ Normalizes patient info for display in ui """
+        patient = deepcopy(patient)
+        patient['active'] = int(patient['active'])
+        patient['name'] = patient['first_name'] + ' ' + patient['last_name']
+        patient['updated_date'] = self.normalize_timestamp(patient['updated_date'])
+        patient['created_date'] = self.normalize_timestamp(patient['created_date'])
+        return patient
+
+    def normalize_timestamp(self, timestamp):
+        """ Adds a timezone and formats the timestamp as a string """
+        if isinstance(timestamp, Timestamp):
+            timestamp = timestamp.to_pydatetime()
+            timestamp = timestamp.astimezone(self.timezone)
+        timestamp = str(timestamp)[:16]
+        return timestamp
 
     def load_data(self):
         """ Loads dummy data into the database """

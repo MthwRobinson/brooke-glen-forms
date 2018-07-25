@@ -2,18 +2,10 @@
 import os
 from flask import Flask, jsonify
 
-from bg_forms.dbops import DBOps
+from bg_forms.database.dbops import DBOps
 
 app = Flask(__name__)
 ENVIRONMENT = os.getenv('APP_ENVIRONMENT')
-
-def normalize_patient(patient):
-    """ Normalizes patient info for display in ui """
-    patient['active'] = int(patient['active'])
-    patient['name'] = patient['first_name'] + ' ' + patient['last_name']
-    patient['updated_date'] = str(patient['updated_date'])[:16]
-    patient['created_date'] = str(patient['updated_date'])[:16]
-    return patient
 
 @app.route('/service/test', methods=['GET'])
 def test():
@@ -28,7 +20,6 @@ def get_patient(patient_id):
     """ Fetches a patient from the database """
     dbops = DBOps(ENVIRONMENT)
     patient = dbops.get_patient(patient_id)
-    patient = normalize_patient(patient)
     return jsonify(patient)
 
 @app.route('/service/patient/<patient_id>', methods=['DELETE'])
@@ -63,7 +54,6 @@ def get_patients():
     dbops = DBOps(ENVIRONMENT)
     patients = dbops.get_all_patients()
     for patient in patients:
-        patient = normalize_patient(patient)
     return jsonify(patients)
 
 @app.route('/service/aggregates/precautions', methods=['GET'])
