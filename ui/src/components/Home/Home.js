@@ -5,8 +5,6 @@ import axios from 'axios';
 import './Home.css';
 import PatientCard from './../PatientCard/PatientCard';
 
-const patients = require('./../../data/dummyPatients.json');
-
 class Home extends Component {
   state = {
     patients: []
@@ -18,38 +16,14 @@ class Home extends Component {
         const patients = res.data;
         this.setState({patients: patients });
       })
-
-  }
-
-  renderCard(){
-    return(
-      <div>
-        <Row>
-          <Col xs={6} sm={6} md={6} lg={6}>
-            <PatientCard 
-              name={this.state.patients[0].name}
-              updated={this.state.patients[0].updated_date}
-              unit={this.state.patients[0].unit}
-              obsLevel={this.state.patients[0].obs_level}
-              precautions={this.state.patients[0].precautions}
-              click={()=>this.props.selectPatient(
-                this.state.patients[0].name,
-                this.state.patients[0].updated_date,
-                this.state.patients[0].unit,
-                this.state.patients[0].obs_level,
-                this.state.patients[0].precautions
-              )}
-            />
-          </Col>
-        </Row>
-      </div>
-    );
   }
 
   renderCards(i,j){
-    return(
+    // Renders the cards in the row screen
+    // If there is only one card in the row,
+    //  then the second column will be blank
+    let firstCard = (
       <div>
-        <Row>
           <Col xs={6} sm={6} md={6} lg={6}>
             <PatientCard 
               name={this.state.patients[i].name}
@@ -66,6 +40,13 @@ class Home extends Component {
               )}
             />
           </Col>
+      </div>
+    )
+
+    let secondCard = null;
+    if(this.state.patients.length>=i+1){
+      secondCard = (
+        <div>
           <Col xs={6} sm={6} md={6} lg={6}>
             <PatientCard 
               name={this.state.patients[j].name}
@@ -82,25 +63,39 @@ class Home extends Component {
               )}
             />
           </Col>
+        </div>
+      )
+    }
+
+    return(
+      <div>
+        <Row>
+          {firstCard}
+          {secondCard}
         </Row>
       </div>
     );
   }
 
   render() {
+    // Populate the cards in the home screen
+    // The fourth row will only appear when
+    //  the screen is rotate long-ways
     let firstRow = null;
-    if(this.state.patients.length>=2){
+    if(this.state.patients.length>=1){
       firstRow = this.renderCards(0,1);
-    } else if (this.state.patients.length===1){
-      firstRow = this.renderCard();
-    }
+    } 
     let secondRow = null;
-    if(this.state.patients.length>=4){
+    if(this.state.patients.length>=3){
       secondRow = this.renderCards(2,3);
     }
     let thirdRow = null;
-    if(this.state.patients.length>=6){
+    if(this.state.patients.length>=5){
       thirdRow = this.renderCards(3,4);
+    }
+    let fourthRow = null;
+    if(this.state.patients.length>=7){
+      fourthRow = this.renderCards(5,6);
     }
 
     return (
@@ -114,6 +109,9 @@ class Home extends Component {
           {firstRow}
           {secondRow}
           {thirdRow}
+          <div className='hidden-md hidden-lg'>
+            {fourthRow}
+          </div>
         </Grid>
       </div>
     );
