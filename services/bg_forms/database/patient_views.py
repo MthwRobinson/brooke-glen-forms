@@ -51,4 +51,8 @@ class PatientViews(DBOps):
             recently_viewed = []
         else:
             recently_viewed = [dict(df.loc[i]) for i in df.index]
+            for view in recently_viewed:
+                view['time_viewed'] = self.normalize_timestamp(
+                    view['time_viewed']
+                )
         return recently_viewed

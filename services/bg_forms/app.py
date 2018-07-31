@@ -1,9 +1,10 @@
 """ Database API for the Brooke Glen app """
 import os
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 
 from bg_forms.database.dbops import DBOps
 from bg_forms.database.patients import Patients
+from bg_forms.database.patient_views import PatientViews
 from bg_forms.database.trends import Trends
 
 app = Flask(__name__)
@@ -16,6 +17,9 @@ def test():
         'status': 'success',
         'message': 'Hello, friend! :)'
     })
+
+# Patient read and update routes
+# See bg_forms.database.patients
 
 @app.route('/service/patient/<patient_id>', methods=['GET'])
 def get_patient(patient_id):
@@ -56,6 +60,35 @@ def get_patients():
     patient_info = Patients(ENVIRONMENT)
     patients = patient_info.get_all_patients()
     return jsonify(patients)
+
+# Patient views routes
+# See bg_forms.database.patient_views
+
+@app.route('/service/patient_views', methods=['POST'])
+def post_patient_view():
+    """ Post a patient view to the database """
+    patient_views = PatientViews(ENVIRONMENT)
+    if not request.json:
+        error = {'status': 'error: JSON not found'}
+
+    view = request.json
+    patient_views.post_view(view['user_id'], view['patient_id'])
+    msg = 'USER: %s VIEWED %s'%(view['user_id'], view['patient_id'])
+    return jsonify({'status': msg})
+
+@app.route('/service/patient_views/<user_id>', methods=['GET'])
+def get_patient_views(user_id):
+    """ Pulls the most recently viewed patients for a user """
+    limit = request.args.get('limit')
+    if not limit:
+        limit = 8
+
+    patient_views = PatientViews(ENVIRONMENT)
+    viewed = patient_views.get_recently_viewed(user_id, limit)
+    return jsonify(viewed)
+
+# Trend routes
+# See bg_forms.database.trends
 
 @app.route('/service/trends/precautions', methods=['GET'])
 def get_precaution_totals():
