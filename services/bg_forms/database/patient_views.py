@@ -2,6 +2,8 @@
 import datetime
 import uuid
 
+import pandas as pd
+
 from bg_forms.database.dbops import DBOps
 
 class PatientViews(DBOps):
@@ -25,4 +27,28 @@ class PatientViews(DBOps):
             cursor.execute(sql, values)
         self.connection.commit()
 
+    def delete_views(self, user_id):
+        """ Deletes a view from the database """
+        sql = """
+            DELETE FROM {schema}.patient_views
+            WHERE user_id = '{user_id}'
+        """.format(schema=self.pg_schema, user_id=user_id)
+        with self.connection.cursor() as cursor:
+            cursor.execute(sql)
+        self.connection.commit()
 
+    def get_recently_viewed(self, user_id, limit=8):
+        """ Pulls a user's most recently viewed patients """
+        sql = """
+            SELECT *
+            FROM {schema}.patient_views
+            WHERE user_id = '{user_id}'
+            ORDER BY time_viewed desc
+            LIMIT {limit}
+        """.format(schema=self.pg_schema, user_id=user_id, limit=limit)
+        df = pd.read_sql(sql, self.connection)
+        if len(df) == 0:
+            recently_viewed = []
+        else:
+            recently_viewed = [dict(df.loc[i]) for i in df.index]
+        return recently_viewed
