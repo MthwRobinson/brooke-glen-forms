@@ -39,7 +39,7 @@ class Trends extends Component {
           <h2>Trends</h2><hr/>
           <h4>Track trends in the patient population.</h4>
         </Row>
-        <Row className='plot-container hidden-xs hidden-sm'>
+        <Row className='plot-container visible-md visible-lg'>
           <Plot
           data={[
             {
