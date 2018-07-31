@@ -19,15 +19,6 @@ configs = {
         'PG_SCHEMA': 'bg_forms',
         'TIMEZONE': pytz.timezone('US/Eastern')
     },
-    'TEST': {
-        'PG_HOST': 'brooke-glen-db',
-        'PG_PORT': 5432,
-        'PG_DATABASE': 'bg_forms_test',
-        'PG_USER': 'postgres',
-        'PG_PASS': 'postgres',
-        'PG_SCHEMA': 'bg_forms',
-        'TIMEZONE': pytz.timezone('US/Eastern')
-    },
     'PROD': {
         'PG_HOST': 'brooke-glen-db',
         'PG_PORT': 5432,
