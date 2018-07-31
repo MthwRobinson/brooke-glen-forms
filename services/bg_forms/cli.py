@@ -3,8 +3,7 @@ import logging
 import click
 import daiquiri
 
-from bg_forms.app import app
-from bg_forms.dbops import DBOps
+from bg_forms.database.dbops import DBOps
 from bg_forms.configuration import list_environments
 
 daiquiri.setup(level=logging.INFO)
@@ -19,14 +18,15 @@ def main():
     pass
 
 @click.command()
-def initialize_database():
-    environments = list_environments()
-    for env in environments:
-        if env != 'LOCAL':
-            dbops = DBOps(env)
-            msg = 'Initializing database, ENV: %s, SCHEMA: %s'%(env, dbops.pg_schema)
-            LOGGER.info(msg)
-            dbops.initialize_database()
+@click.option('--environment', help='The environment to initialize')
+def initialize_database(environment):
+    dbops = DBOps(environment)
+    msg = 'Initializing database, ENV: %s, SCHEMA: %s'%(
+        environment, 
+        dbops.pg_schema
+    )
+    LOGGER.info(msg)
+    dbops.initialize_database()
 main.add_command(initialize_database)
 
 if __name__ == '__main__':
