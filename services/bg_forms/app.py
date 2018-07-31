@@ -57,7 +57,7 @@ def get_patients():
     patients = patient_info.get_all_patients()
     return jsonify(patients)
 
-@app.route('/service/aggregates/precautions', methods=['GET'])
+@app.route('/service/trends/precautions', methods=['GET'])
 def get_precaution_totals():
     """ Aggregates the total number for each precaution """
     trends = Trends(ENVIRONMENT)

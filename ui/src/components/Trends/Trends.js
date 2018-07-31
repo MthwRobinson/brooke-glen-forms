@@ -17,7 +17,7 @@ class Trends extends Component {
   }
 
   componentDidMount(){
-    axios.get('/service/aggregates/precautions')
+    axios.get('/service/trends/precautions')
       .then(res => {
         const counts = res.data;
         this.setState({counts: counts});
