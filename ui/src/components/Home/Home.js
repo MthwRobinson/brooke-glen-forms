@@ -50,13 +50,9 @@ class Home extends Component {
               unit={this.state.patients[j].unit}
               obsLevel={this.state.patients[j].obs_level}
               precautions={this.state.patients[j].precautions}
-              click={()=>this.props.selectPatient(
-                this.state.patients[j].name,
-                this.state.patients[j].updated_date,
-                this.state.patients[j].unit,
-                this.state.patients[j].obs_level,
-                this.state.patients[j].precautions
-              )}
+              click={
+                ()=>this.props.selectPatient(this.state.patients[j].patient_id)
+              }
             />
           </Col>
         </div>
