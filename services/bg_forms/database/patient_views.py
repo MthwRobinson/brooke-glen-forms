@@ -68,4 +68,8 @@ class PatientViews(DBOps):
         df = pd.read_sql(sql, self.connection)
         patients = [dict(df.loc[i]) for i in df.index]
         patients = [self.normalize_patient(x) for x in patients]
+        for patient in patients:
+            patient['time_viewed'] = self.normalize_timestamp(
+                patient['time_viewed']
+            )
         return patients
