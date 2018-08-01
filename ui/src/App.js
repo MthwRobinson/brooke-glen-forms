@@ -14,8 +14,6 @@ import PatientRecord from './components/PatientRecord/PatientRecord';
 import PatientRecords from './components/PatientRecords/PatientRecords';
 import Trends from './components/Trends/Trends';
 
-const PATIENTS = require('./data/dummyPatients.json');
-
 class App extends Component {
   constructor(props) {
     super(props);
@@ -23,13 +21,7 @@ class App extends Component {
       isPaneOpen: false,
       view: 'home',
       lastView: 'home',
-      currentPatient: {
-        name: PATIENTS[0].name,
-        updated: PATIENTS[0].updated,
-        unit: PATIENTS[0].unit,
-        obsLevel: PATIENTS[0].obsLevel,
-        precautions: PATIENTS[0].precautions
-      }
+      currentPatient: null
     };
   }
   
@@ -53,16 +45,10 @@ class App extends Component {
     this.closeMenuHandler();
   }
 
-  selectPatientHandler = (name, updated, unit, obsLevel, precautions) => {
+  selectPatientHandler = (patientId) => {
     this.setState({
       view: 'patientRecord',
-      currentPatient: {
-        name: name,
-        updated: updated,
-        unit: unit,
-        obsLevel: obsLevel,
-        precautions: precautions
-      }
+      currentPatient: patientId
     })
   }
 
@@ -85,28 +71,20 @@ class App extends Component {
 
     let body = null;
     if(this.state.view==='home'){
-      body = <Home 
-              selectPatient={
-                (name, updated, unit, obsLevel, precautions) => 
-                this.selectPatientHandler(name, updated, unit, obsLevel, precautions)
+      body = <Home selectPatient={
+                (patientId) => this.selectPatientHandler(patientId)
               }
             />
     } else if(this.state.view==='patientRecords'){
-      body = <PatientRecords
-              selectPatient={
-                (name, updated, unit, obsLevel, precautions) => 
-                this.selectPatientHandler(name, updated, unit, obsLevel, precautions)
+      body = <PatientRecords selectPatient={
+                (patientId) => this.selectPatientHandler(patientId)
               }
             />
     } else if(this.state.view==='trends'){
       body = <Trends />
     } else if(this.state.view==='patientRecord'){
-      body = <PatientRecord 
-              name={this.state.currentPatient.name}
-              updated={this.state.currentPatient.updated}
-              unit={this.state.currentPatient.unit}
-              obsLevel={this.state.currentPatient.obsLevel}
-              precautions={this.state.currentPatient.precautions}
+      body = <PatientRecord
+              patientId={this.state.currentPatient}
               exit={()=>this.exitHandler()}
             />
     }

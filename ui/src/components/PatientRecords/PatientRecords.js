@@ -12,8 +12,6 @@ import axios from 'axios';
 
 import './PatientRecords.css';
 
-const PATIENTS = require('./../../data/dummyPatients.json');
-
 class PatientRecords extends Component {
   constructor(props){
     super(props);
@@ -60,15 +58,15 @@ class PatientRecords extends Component {
       unit: 'All',
       obsLevel: 'All',
       precaution: 'Any',
-      patients: PATIENTS
+      patients: []
     })
   }
 
   handleFilter = () => {
     let patients = [];
 
-    for(var i=0; i<PATIENTS.length; i++){
-      let patient = PATIENTS[i];
+    for(var i=0; i<this.state.patients.length; i++){
+      let patient = this.state.patients[i];
       let keepPatient = true;
       // Filter on Unit
       if(this.state.unit !== 'All'){
@@ -114,17 +112,12 @@ class PatientRecords extends Component {
           <tbody>
             {this.state.patients.map((patient, index) => {
               return(
-              <tr key={index} onClick={()=>this.props.selectPatient(
-                patient.name,
-                patient.updated,
-                patient.unit,
-                patient.obsLevel,
-                patient.precautions
-              )}>
+              <tr key={index} 
+                onClick={()=>this.props.selectPatient(patient.patient_id)}>
                 <th>{patient.name}</th>
-                <th>{patient.updated}</th>
+                <th>{patient.updated_date}</th>
                 <th>{patient.unit}</th>
-                <th>{patient.obsLevel}</th>
+                <th>{patient.obs_level}</th>
                 <th>{patient.precautions.join(', ')}</th>
               </tr>
               )

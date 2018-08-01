@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Col, Nav, NavItem, Row } from 'react-bootstrap';
+import axios from 'axios';
 
 import './PatientRecord.css';
 
@@ -10,8 +11,28 @@ class PatientRecord extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      activeTab: 'crisisPlan'
+      activeTab: 'crisisPlan',
+      name: null,
+      updated_date: null,
+      unit: null,
+      obs_level: null,
+      precautions: []
     }
+  }
+
+  componentDidMount(){
+    const route = '/service/patient/' + this.props.patientId;
+    axios.get(route)
+      .then(res => {
+        const patient = res.data;
+        this.setState({
+          name: patient.name,
+          updated_date: patient.updated_date,
+          unit: patient.unit,
+          obs_level: patient.obs_level,
+          precautions: patient.precautions
+        })
+      })
   }
 
   selectHandler = (tab) => {
@@ -19,7 +40,7 @@ class PatientRecord extends Component {
   }
 
   renderPatientInfo = () => {
-    const precautionsText = this.props.precautions.join(', ');
+    const precautionsText = this.state.precautions.join(', ');
     return(
       <div>
         <div className='record-data hidden-sm hidden-xs'>
@@ -29,18 +50,18 @@ class PatientRecord extends Component {
               alt='placeholder'
             /><br/>
           <div className='record-metadata'>
-            <b>Name:</b> {this.props.name}<br/>
-            <b>Updated:</b> {this.props.updated}<br/>
-            <b>Unit:</b> {this.props.unit}<br/>
-            <b>Obs. Level:</b> {this.props.obsLevel}<br/>
+            <b>Name:</b> {this.state.name}<br/>
+            <b>Updated:</b> {this.state.updated_date}<br/>
+            <b>Unit:</b> {this.state.unit}<br/>
+            <b>Obs. Level:</b> {this.state.obs_level}<br/>
             <b>Notes:</b> {precautionsText}
           </div>
         </div>
         <div className='record-metadata hidden-md hidden-lg'>
-          <b>Name:</b> {this.props.name}<br/>
-          <b>Updated:</b> {this.props.updated}<br/>
-          <b>Unit:</b> {this.props.unit}<br/>
-          <b>Obs. Level:</b> {this.props.obsLevel}<br/>
+          <b>Name:</b> {this.state.name}<br/>
+          <b>Updated:</b> {this.state.updated_date}<br/>
+          <b>Unit:</b> {this.state.unit}<br/>
+          <b>Obs. Level:</b> {this.state.obs_level}<br/>
           <b>Notes:</b> {precautionsText}
         </div>
       </div>
@@ -76,7 +97,7 @@ class PatientRecord extends Component {
             <i className='fa fa-times pull-right exit-button'
                onClick={()=>this.props.exit()}
              ></i>
-            {this.props.name}</h2><hr/>
+            {this.state.name}</h2><hr/>
           <h4>View and manage patient information.</h4>
         </Row>
         <Row>
