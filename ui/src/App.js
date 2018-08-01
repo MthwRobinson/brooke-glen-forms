@@ -21,7 +21,8 @@ class App extends Component {
       isPaneOpen: false,
       view: 'home',
       lastView: 'home',
-      currentPatient: null
+      currentPatient: null,
+      userId: 'eileen'
     };
   }
   
@@ -73,18 +74,22 @@ class App extends Component {
     if(this.state.view==='home'){
       body = <Home selectPatient={
                 (patientId) => this.selectPatientHandler(patientId)
-              }
+                }
+                userId={this.state.userId}
+
             />
     } else if(this.state.view==='patientRecords'){
       body = <PatientRecords selectPatient={
                 (patientId) => this.selectPatientHandler(patientId)
-              }
+                }
+                userId={this.state.userId}
             />
     } else if(this.state.view==='trends'){
-      body = <Trends />
+      body = <Trends userId={this.state.userId} />
     } else if(this.state.view==='patientRecord'){
       body = <PatientRecord
               patientId={this.state.currentPatient}
+              userId={this.state.userId}
               exit={()=>this.exitHandler()}
             />
     }

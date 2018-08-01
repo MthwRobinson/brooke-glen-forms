@@ -21,6 +21,7 @@ class PatientRecord extends Component {
   }
 
   componentDidMount(){
+    // Select the patient information
     const route = '/service/patient/' + this.props.patientId;
     axios.get(route)
       .then(res => {
@@ -33,6 +34,8 @@ class PatientRecord extends Component {
           precautions: patient.precautions
         })
       })
+
+    // Post the user viewed information back to the database
   }
 
   selectHandler = (tab) => {

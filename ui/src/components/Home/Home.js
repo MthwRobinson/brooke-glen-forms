@@ -11,7 +11,8 @@ class Home extends Component {
   }
 
   componentDidMount(){
-    axios.get('/service/patients')
+    const route = '/service/patient_views/' + this.props.userId;
+    axios.get(route)
       .then(res => {
         const patients = res.data;
         this.setState({patients: patients });
