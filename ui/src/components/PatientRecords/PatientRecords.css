@@ -8,6 +8,10 @@
   margin-top: 26px;
 }
 
+.table-row {
+  cursor: pointer;
+}
+
 .patient-table {
   max-height: 400px;
   overflow-y: scroll;

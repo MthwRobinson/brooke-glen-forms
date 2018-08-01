@@ -103,12 +103,3 @@ class Patients(DBOps):
         patients = [dict(df.loc[i]) for i in df.index]
         patients = [self.normalize_patient(x) for x in patients]
         return patients
-
-    def normalize_patient(self, patient):
-        """ Normalizes patient info for display in ui """
-        patient = deepcopy(patient)
-        patient['active'] = int(patient['active'])
-        patient['name'] = patient['first_name'] + ' ' + patient['last_name']
-        patient['updated_date'] = self.normalize_timestamp(patient['updated_date'])
-        patient['created_date'] = self.normalize_timestamp(patient['created_date'])
-        return patient

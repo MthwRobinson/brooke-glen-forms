@@ -41,7 +41,7 @@ class Home extends Component {
     )
 
     let secondCard = null;
-    if(this.state.patients.length>=i+1){
+    if(this.state.patients.length>=i+2){
       secondCard = (
         <div>
           <Col xs={6} sm={6} md={6} lg={6}>
@@ -84,11 +84,11 @@ class Home extends Component {
     }
     let thirdRow = null;
     if(this.state.patients.length>=5){
-      thirdRow = this.renderCards(3,4);
+      thirdRow = this.renderCards(4,5);
     }
     let fourthRow = null;
     if(this.state.patients.length>=7){
-      fourthRow = this.renderCards(5,6);
+      fourthRow = this.renderCards(6,7);
     }
 
     return(

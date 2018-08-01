@@ -40,19 +40,32 @@ class PatientViews(DBOps):
     def get_recently_viewed(self, user_id, limit=8):
         """ Pulls a user's most recently viewed patients """
         sql = """
-            SELECT *
-            FROM {schema}.patient_views
-            WHERE user_id = '{user_id}'
+            SELECT
+                b.patient_id,
+                first_name,
+                last_name,
+                unit,
+                obs_level,
+                precautions,
+                active,
+                updated_date,
+                created_date,
+                time_viewed
+            FROM (
+                SELECT 
+                    user_id,
+                    patient_id,
+                    max(time_viewed) as time_viewed
+                FROM {schema}.patient_views
+                WHERE user_id = '{user_id}'
+                GROUP BY user_id, patient_id
+            ) a
+            INNER JOIN {schema}.patients b
+            ON a.patient_id = b.patient_id
             ORDER BY time_viewed desc
             LIMIT {limit}
         """.format(schema=self.pg_schema, user_id=user_id, limit=limit)
         df = pd.read_sql(sql, self.connection)
-        if len(df) == 0:
-            recently_viewed = []
-        else:
-            recently_viewed = [dict(df.loc[i]) for i in df.index]
-            for view in recently_viewed:
-                view['time_viewed'] = self.normalize_timestamp(
-                    view['time_viewed']
-                )
-        return recently_viewed
+        patients = [dict(df.loc[i]) for i in df.index]
+        patients = [self.normalize_patient(x) for x in patients]
+        return patients

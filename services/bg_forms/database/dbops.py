@@ -1,5 +1,6 @@
 """ Connects to the postgres database
 and performs operatoins on tables """
+from copy import deepcopy
 import datetime
 import json
 import logging
@@ -72,6 +73,15 @@ class DBOps(object):
         pg_array = pg_array.replace(']','}')
         pg_array = "'" + pg_array + "'"
         return pg_array
+
+    def normalize_patient(self, patient):
+        """ Normalizes patient info for display in ui """
+        patient = deepcopy(patient)
+        patient['active'] = int(patient['active'])
+        patient['name'] = patient['first_name'] + ' ' + patient['last_name']
+        patient['updated_date'] = self.normalize_timestamp(patient['updated_date'])
+        patient['created_date'] = self.normalize_timestamp(patient['created_date'])
+        return patient
 
     def normalize_timestamp(self, timestamp):
         """ Adds a timezone and formats the timestamp as a string """

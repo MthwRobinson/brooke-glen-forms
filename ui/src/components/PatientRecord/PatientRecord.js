@@ -36,6 +36,12 @@ class PatientRecord extends Component {
       })
 
     // Post the user viewed information back to the database
+    axios.post('/service/patient_views',
+      {
+        'user_id': this.props.userId,
+        'patient_id': this.props.patientId
+      }
+    )
   }
 
   selectHandler = (tab) => {

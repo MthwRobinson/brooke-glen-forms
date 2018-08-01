@@ -112,7 +112,7 @@ class PatientRecords extends Component {
           <tbody>
             {this.state.patients.map((patient, index) => {
               return(
-              <tr key={index} 
+              <tr className='table-row' key={index} 
                 onClick={()=>this.props.selectPatient(patient.patient_id)}>
                 <th>{patient.name}</th>
                 <th>{patient.updated_date}</th>
