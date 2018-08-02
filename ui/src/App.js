@@ -10,7 +10,6 @@ import 'react-sliding-pane/dist/react-sliding-pane.css';
 
 import Header from './components/Header/Header';
 import Home from './components/Home/Home';
-import MenuContent from './components/MenuContent/MenuContent';
 import PatientRecord from './components/PatientRecord/PatientRecord';
 import PatientRecords from './components/PatientRecords/PatientRecords';
 import Trends from './components/Trends/Trends';
@@ -97,45 +96,62 @@ class App extends Component {
 
     // Builds the home screen with recently viewed patients
     const home = () => {
-      return(
-        <div>
+      let body = null;
+      if(this.state.view==='home'){
+        body = (
           <Home 
             selectPatient={(patientId) => this.selectPatientHandler(patientId)}
             userId={this.state.userId} />
+        )
+      }
+      return(
+        <div>
+          {body}
         </div>
       );
     }
 
     // Builds the patient records screen
     const patientRecords = () => {
+      let body = null;
+      if(this.state.view==='patient-records'){
+          body = (
+            <PatientRecords 
+              selectPatient={(patientId) => this.selectPatientHandler(patientId)}
+              userId={this.state.userId} />
+          )
+      }
       return (
         <div>
-          <PatientRecords 
-            selectPatient={(patientId) => this.selectPatientHandler(patientId)}
-            userId={this.state.userId} />
+          {body}
         </div>
       );
     }
 
     // Builds the screen with graphs and analytics
     const trends = () => {
+      let body = null;
+      if(this.state.view==='trends'){
+          body = <Trends userId={this.state.userId} />
+      }
       return(
         <div>
-          <Trends userId={this.state.userId} />
+          {body}
         </div>
       )
     }
 
     // Builds an individual patient's record
-    let patientRecord = () => {
-      return(
-        <div>
-        <PatientRecord
-            patientId={this.state.currentPatient}
-            userId={this.state.userId}
-            exit={()=>this.exitHandler()} />
-        </div>
-      );
+    let patientRecord = null;
+    if(this.state.view==='patientRecord'){
+      patientRecord = (
+          <div>
+          <PatientRecord
+              patientId={this.state.currentPatient}
+              userId={this.state.userId}
+              exit={()=>this.exitHandler()} />
+          </div>
+        );
     }
 
     return (
@@ -146,10 +162,10 @@ class App extends Component {
             {menu}
             <Route exact path="/" component={home} />
             <Route path="/patient-records" component={patientRecords} />
-            <Route path="/patient" component={patientRecord} />
             <Route path="/trends" component={trends} />
           </div>
         </Router>
+        {patientRecord}
       </div>
     );
   }

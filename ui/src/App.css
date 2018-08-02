@@ -19,13 +19,13 @@
   line-height: 20%;
 }
 
-a {
+.MenuContent > a {
   color: black;
   font-size: 20px;
   line-height: 180%;
 }
 
-a:hover {
+.MenuContent > a:hover {
   color: #666666;
   text-decoration: none;
 }
