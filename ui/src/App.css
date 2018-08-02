@@ -5,3 +5,27 @@
   color: black;
   transform: rotate(180deg);
 }
+
+.MenuContent {
+  font-family: 'Source Sans Pro', sans-serif;
+  color: black;
+}
+
+.MenuContent > hr {
+  border-color: black;
+}
+
+.MenuContent > h3 {
+  line-height: 20%;
+}
+
+a {
+  color: black;
+  font-size: 20px;
+  line-height: 180%;
+}
+
+a:hover {
+  color: #666666;
+  text-decoration: none;
+}
