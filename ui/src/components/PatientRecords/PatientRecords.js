@@ -24,6 +24,7 @@ class PatientRecords extends Component {
       allPatients: []
     }
 
+    // Bindings for the filter settings
     this.handleUnit = this.handleUnit.bind(this);
     this.handleObservation = this.handleObservation.bind(this);
     this.handlePrecautions = this.handlePrecautions.bind(this);
@@ -33,8 +34,11 @@ class PatientRecords extends Component {
     // Either make a service call or used cached data
     if(this.props.cache){
       this.setState({
-        allPatients: this.props.cache.patients,
-        patients: this.props.cache.patients
+        allPatients: this.props.cache.allPatients,
+        patients: this.props.cache.patients,
+        unit: this.props.cache.unit,
+        obsLevel: this.props.cache.obsLevel,
+        precaution: this.props.cache.precaution
       });
     } else{
       axios.get('/service/patients')
@@ -45,22 +49,32 @@ class PatientRecords extends Component {
             patients: patients
           });
           this.props.setCache({
-            patients: patients
+            allPatients: patients,
+            patients: patients,
+            unit: 'All',
+            obsLevel: 'All',
+            precaution: 'Any'
           });
         })
     }
   }
 
   handleUnit(event) {
+    // Update the state and the cache
     this.setState({unit: event.target.value});
+    this.props.cache.unit = event.target.value;
   }
   
   handleObservation(event) {
+    // Update the state and the cache
     this.setState({obsLevel: event.target.value});
+    this.props.cache.obsLevel = event.target.value;
   }
 
   handlePrecautions(event) {
+    // Update the state and the cache
     this.setState({precaution: event.target.value});
+    this.props.cache.precaution = event.target.value;
   }
 
   clearFilter = () => {
@@ -105,7 +119,17 @@ class PatientRecords extends Component {
         patients.push(patient);
       }
     }
+
+    // Update the state and the cache
     this.setState({patients: patients});
+    this.props.setCache({
+      allPatients: this.state.allPatients,
+      patients: patients,
+      unit: this.state.unit,
+      obsLevel: this.state.obsLevel,
+      precaution: this.state.precaution
+    });
+
   }
 
   renderTable = () => {
