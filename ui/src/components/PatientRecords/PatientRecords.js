@@ -186,14 +186,12 @@ class PatientRecords extends Component {
           <Col xs={1} sm={1} md={1} lg={1}>
             <Button 
               className='submit-button' 
-              type="submit"
               onClick={()=>this.handleFilter()}
             >Filter</Button>
           </Col>
           <Col xs={1} sm={1} md={1} lg={1}>
             <Button 
               className='submit-button' 
-              type="submit"
               onClick={()=>this.clearFilter()}
             >Clear</Button>
           </Col>
