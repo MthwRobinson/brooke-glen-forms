@@ -33,8 +33,8 @@ class PatientRecords extends Component {
     // Either make a service call or used cached data
     if(this.props.cache){
       this.setState({
-        allPatients: this.props.cache,
-        patients: this.props.cache
+        allPatients: this.props.cache.patients,
+        patients: this.props.cache.patients
       });
     } else{
       axios.get('/service/patients')
@@ -44,7 +44,9 @@ class PatientRecords extends Component {
             allPatients: patients,
             patients: patients
           });
-          this.props.setCache(patients);
+          this.props.setCache({
+            patients: patients
+          });
         })
     }
   }
