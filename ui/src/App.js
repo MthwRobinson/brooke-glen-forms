@@ -19,8 +19,8 @@ class App extends Component {
     super(props);
     this.state = {
       isPaneOpen: false,
-      view: 'home',
-      lastView: 'home',
+      view: null,
+      lastView: null,
       currentPatient: null,
       userId: 'eileen',
       cache: null
@@ -28,6 +28,24 @@ class App extends Component {
   }
   
   componentDidMount() {
+    console.log(window.location);
+    if(window.location.pathname==='/patient-records'){
+      this.setState({ 
+        view: 'patient-records',
+        lastView: 'patient-records'
+      });
+    } else if (window.location.pathname==='/trends'){
+      this.setState({ 
+        view: 'trends',
+        lastView: 'trends'
+      });
+    } else {
+      this.setState({ 
+        view: 'home',
+        lastView: 'home'
+      });
+      
+    }
     Modal.setAppElement(this.el);
   }
 
@@ -138,7 +156,10 @@ class App extends Component {
           body = (
             <PatientRecords 
               selectPatient={(patientId) => this.selectPatientHandler(patientId)}
-              userId={this.state.userId} />
+              userId={this.state.userId} 
+              cache={this.state.cache}
+              setCache={(cache) => this.setCacheHandler(cache)}
+            />
           )
       }
       return (
@@ -152,7 +173,13 @@ class App extends Component {
     const trends = () => {
       let body = null;
       if(this.state.view==='trends'){
-          body = <Trends userId={this.state.userId} />
+        body = (
+            <Trends 
+                userId={this.state.userId}
+                cache={this.state.cache}
+                setCache={(cache) => this.setCacheHandler(cache)}
+            />
+          )
       }
       return(
         <div>
@@ -169,10 +196,15 @@ class App extends Component {
           <PatientRecord
               patientId={this.state.currentPatient}
               userId={this.state.userId}
-              exit={()=>this.exitHandler()} />
+              exit={()=>this.exitHandler()} 
+              cache={this.state.cache}
+              setCache={(cache) => this.setCacheHandler(cache)}
+          />
           </div>
         );
     }
+
+    console.log(this.props);
 
     return (
       <div className="App">

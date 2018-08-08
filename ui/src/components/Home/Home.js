@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Grid, Col, Row } from 'react-bootstrap';
+import { withRouter } from 'react-router-dom';
 import axios from 'axios';
 
 import './Home.css';
@@ -13,6 +14,7 @@ class Home extends Component {
   componentDidMount(){
     // Either makes a service call or sets patients using
     //  cached data when the component is rendered
+    console.log(this.props.history);
     if(this.props.cache){
       this.setState({patients: this.props.cache});
     } else{
@@ -154,4 +156,4 @@ class Home extends Component {
   }
 }
 
-export default Home;
+export default withRouter(Home);
