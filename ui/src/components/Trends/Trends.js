@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Row } from 'react-bootstrap';
+import { withRouter } from 'react-router-dom';
 import Plot from 'react-plotly.js';
 import axios from 'axios';
 
@@ -17,19 +18,33 @@ class Trends extends Component {
   }
 
   componentDidMount(){
-    axios.get('/service/trends/precautions')
-      .then(res => {
-        const counts = res.data;
-        this.setState({counts: counts});
-        
-        var x = [];
-        var y = [];
-        for(var key in this.state.counts){
-          x.push(key);
-          y.push(this.state.counts[key]);
-        }
-        this.setState({x: x, y: y});
+    // Either make a service call or use cached data
+    if(this.props.cache){
+      this.setState({
+        counts: this.props.cache.counts,
+        x: this.props.cache.x,
+        y: this.props.cache.y
       })
+    } else{
+      axios.get('/service/trends/precautions')
+        .then(res => {
+          const counts = res.data;
+          this.setState({counts: counts});
+          
+          var x = [];
+          var y = [];
+          for(var key in this.state.counts){
+            x.push(key);
+            y.push(this.state.counts[key]);
+          }
+          this.setState({x: x, y: y});
+          this.props.setCache({
+            counts: counts,
+            x: x,
+            y: y
+          });
+        })
+    }
   }
 
   render() {
@@ -86,4 +101,4 @@ class Trends extends Component {
   }
 }
 
-export default Trends;
+export default withRouter(Trends);
