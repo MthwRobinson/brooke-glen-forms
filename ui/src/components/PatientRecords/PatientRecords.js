@@ -8,6 +8,7 @@ import {
   Table,
   Row 
 } from 'react-bootstrap';
+import { withRouter } from 'react-router-dom';
 import axios from 'axios';
 
 import './PatientRecords.css';
@@ -23,22 +24,22 @@ class PatientRecords extends Component {
     }
 
     this.handleUnit = this.handleUnit.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
     this.handleObservation = this.handleObservation.bind(this);
     this.handlePrecautions = this.handlePrecautions.bind(this);
   }
 
   componentDidMount(){
-    axios.get('/service/patients')
-      .then(res => {
-        const patients = res.data;
-        this.setState({patients: patients});
-        console.log(this.state.patients);
-    })
-  }
-
-  handleSubmit(event) {
-    console.log('submitted');
+    // Either make a service call or used cached data
+    if(this.props.cache){
+      this.setState({patients: this.props.cache});
+    } else{
+      axios.get('/service/patients')
+        .then(res => {
+          const patients = res.data;
+          this.setState({patients: patients});
+          this.props.setCache(patients);
+        })
+    }
   }
 
   handleUnit(event) {
@@ -54,6 +55,7 @@ class PatientRecords extends Component {
   }
 
   clearFilter = () => {
+    // Clears the filter settings
     this.setState({
       unit: 'All',
       obsLevel: 'All',
@@ -63,6 +65,7 @@ class PatientRecords extends Component {
   }
 
   handleFilter = () => {
+    // Filter patients based on the selected settings
     let patients = [];
 
     for(var i=0; i<this.state.patients.length; i++){
@@ -97,6 +100,7 @@ class PatientRecords extends Component {
   }
 
   renderTable = () => {
+    // Created the table with the patient information
     return(
       <div>
         <Table responsive hover>
@@ -131,6 +135,7 @@ class PatientRecords extends Component {
   }
 
   renderFilters = () => {
+    // Renders the filters
     return(
       <div>
         <form>
@@ -218,4 +223,4 @@ class PatientRecords extends Component {
   }
 }
 
-export default PatientRecords;
+export default withRouter(PatientRecords);

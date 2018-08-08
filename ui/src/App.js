@@ -28,7 +28,7 @@ class App extends Component {
   }
   
   componentDidMount() {
-    console.log(window.location);
+    // Sets the view based on the url
     if(window.location.pathname==='/patient-records'){
       this.setState({ 
         view: 'patient-records',
@@ -44,12 +44,11 @@ class App extends Component {
         view: 'home',
         lastView: 'home'
       });
-      
     }
+
+    // Modal makes the sliding menu work
     Modal.setAppElement(this.el);
   }
-
-  // Methods for operating the sliding menu
 
   openMenuHandler = () => {
     // Opens the menu
