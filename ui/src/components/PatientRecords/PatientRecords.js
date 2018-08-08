@@ -20,7 +20,8 @@ class PatientRecords extends Component {
       unit: 'All',
       obsLevel: 'All',
       precaution: 'Any',
-      patients: []
+      patients: [],
+      allPatients: []
     }
 
     this.handleUnit = this.handleUnit.bind(this);
@@ -31,12 +32,18 @@ class PatientRecords extends Component {
   componentDidMount(){
     // Either make a service call or used cached data
     if(this.props.cache){
-      this.setState({patients: this.props.cache});
+      this.setState({
+        allPatients: this.props.cache,
+        patients: this.props.cache
+      });
     } else{
       axios.get('/service/patients')
         .then(res => {
           const patients = res.data;
-          this.setState({patients: patients});
+          this.setState({
+            allPatients: patients,
+            patients: patients
+          });
           this.props.setCache(patients);
         })
     }
@@ -60,7 +67,7 @@ class PatientRecords extends Component {
       unit: 'All',
       obsLevel: 'All',
       precaution: 'Any',
-      patients: []
+      patients: this.state.allPatients
     })
   }
 
@@ -68,8 +75,8 @@ class PatientRecords extends Component {
     // Filter patients based on the selected settings
     let patients = [];
 
-    for(var i=0; i<this.state.patients.length; i++){
-      let patient = this.state.patients[i];
+    for(var i=0; i<this.state.allPatients.length; i++){
+      let patient = this.state.allPatients[i];
       let keepPatient = true;
       // Filter on Unit
       if(this.state.unit !== 'All'){
