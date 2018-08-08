@@ -22,7 +22,8 @@ class App extends Component {
       view: 'home',
       lastView: 'home',
       currentPatient: null,
-      userId: 'eileen'
+      userId: 'eileen',
+      cache: null
     };
   }
   
@@ -30,24 +31,33 @@ class App extends Component {
     Modal.setAppElement(this.el);
   }
 
+  // Methods for operating the sliding menu
+
   openMenuHandler = () => {
+    // Opens the menu
     this.setState({ isPaneOpen: true });
   }
   
   closeMenuHandler = () => {
+    // Closes the menu
     this.setState({ isPaneOpen: false });
   }
 
   viewChangeHandler = (view) => {
+    // Changes the current screen for the app
     this.setState({ view: view });
     if(view==='home' || view==='patient-records'){
-      this.setState({ lastView: view });
+      this.setState({ 
+        lastView: view,
+        cache: null
+      });
     }
-
     this.closeMenuHandler();
+    this.setCacheHandler(null);
   }
 
   selectPatientHandler = (patientId) => {
+    // Selects a patient for display in the app
     this.setState({
       view: 'patientRecord',
       currentPatient: patientId
@@ -55,7 +65,14 @@ class App extends Component {
   }
 
   exitHandler = () => {
+    // Exits the screen in the patient component
     this.setState({ view: this.state.lastView });
+    this.setCacheHandler(null);
+  }
+
+  setCacheHandler = (cache) => {
+    // Resets the state when the view changes
+    this.setState({ cache: cache});
   }
 
   renderPopoutMenu = () => {
@@ -101,7 +118,10 @@ class App extends Component {
         body = (
           <Home 
             selectPatient={(patientId) => this.selectPatientHandler(patientId)}
-            userId={this.state.userId} />
+            userId={this.state.userId} 
+            cache={this.state.cache}
+            setCache={(cache) => this.setCacheHandler(cache)}
+          />
         )
       }
       return(

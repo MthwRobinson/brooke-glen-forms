@@ -11,12 +11,19 @@ class Home extends Component {
   }
 
   componentDidMount(){
-    const route = '/service/patient_views/' + this.props.userId;
-    axios.get(route)
-      .then(res => {
-        const patients = res.data;
-        this.setState({patients: patients });
-      })
+    // Either makes a service call or sets patients using
+    //  cached data when the component is rendered
+    if(this.props.cache){
+      this.setState({patients: this.props.cache});
+    } else{
+      const route = '/service/patient_views/' + this.props.userId;
+      axios.get(route)
+        .then(res => {
+          const patients = res.data;
+          this.setState({patients: patients });
+          this.props.setCache(patients);
+        })
+    }
   }
 
   renderCards = (i,j) => {
