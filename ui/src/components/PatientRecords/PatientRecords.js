@@ -77,6 +77,13 @@ class PatientRecords extends Component {
     this.props.cache.precaution = event.target.value;
   }
 
+  selectPatient = (patientID) => {
+    // Updates the URL and selects the patient
+    this.props.setCache(null);
+    this.props.history.push('/patient-record/' + patientID);
+    this.props.selectPatient(patientID);
+  }
+
   clearFilter = () => {
     // Clears the filter settings
     this.setState({
@@ -150,7 +157,7 @@ class PatientRecords extends Component {
             {this.state.patients.map((patient, index) => {
               return(
               <tr className='table-row' key={index} 
-                onClick={()=>this.props.selectPatient(patient.patient_id)}>
+                onClick={()=>this.selectPatient(patient.patient_id)}>
                 <th>{patient.name}</th>
                 <th>{patient.updated_date}</th>
                 <th>{patient.unit}</th>

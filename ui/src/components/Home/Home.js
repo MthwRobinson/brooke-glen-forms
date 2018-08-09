@@ -14,7 +14,6 @@ class Home extends Component {
   componentDidMount(){
     // Either makes a service call or sets patients using
     //  cached data when the component is rendered
-    console.log(this.props.history);
     if(this.props.cache){
       this.setState({patients: this.props.cache});
     } else{
@@ -26,6 +25,13 @@ class Home extends Component {
           this.props.setCache(patients);
         })
     }
+  }
+
+  selectPatient = (patientID) => {
+    // Updates the URL and selects the patient
+    this.props.setCache(null);
+    this.props.history.push('/patient-record/'+patientID);
+    this.props.selectPatient(patientID);
   }
 
   renderCards = (i,j) => {
@@ -41,9 +47,7 @@ class Home extends Component {
               unit={this.state.patients[i].unit}
               obsLevel={this.state.patients[i].obs_level}
               precautions={this.state.patients[i].precautions}
-              click={
-                ()=>this.props.selectPatient(this.state.patients[i].patient_id)
-              }
+              click={() => this.selectPatient(this.state.patients[i].patient_id)}
             />
           </Col>
       </div>
@@ -60,9 +64,7 @@ class Home extends Component {
               unit={this.state.patients[j].unit}
               obsLevel={this.state.patients[j].obs_level}
               precautions={this.state.patients[j].precautions}
-              click={
-                ()=>this.props.selectPatient(this.state.patients[j].patient_id)
-              }
+              click={() => this.selectPatient(this.state.patients[j].patient_id)}
             />
           </Col>
         </div>

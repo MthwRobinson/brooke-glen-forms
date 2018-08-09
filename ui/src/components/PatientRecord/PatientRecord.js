@@ -21,37 +21,65 @@ class PatientRecord extends Component {
     }
   }
 
-  componentDidMount(){
-    // Select the patient information
-    console.log(this.props.match.params.patientID)
-    const route = '/service/patient/' + this.props.patientId;
-    axios.get(route)
-      .then(res => {
-        const patient = res.data;
-        this.setState({
-          name: patient.name,
-          updated_date: patient.updated_date,
-          unit: patient.unit,
-          obs_level: patient.obs_level,
-          precautions: patient.precautions
-        })
-      })
-
-    // Post the user viewed information back to the database
-    axios.post('/service/patient_views',
-      {
-        'user_id': this.props.userId,
-        'patient_id': this.props.patientId
-      }
-    )
+  exitHandler = () => {
+    // Exits the patient view screen and returns to the last view
+    if(this.props.lastView==='home'){
+      this.props.history.push('/')
+    } else {
+      const url = '/' + this.props.lastView;
+      this.props.history.push(url)
+    }
+    this.props.exit();
   }
+
+  componentDidMount(){
+    // Either makes a service call or sets patient information
+    //  using cached data
+    if(this.props.cache){
+      const patient = this.props.cache;
+      this.setState({
+        name: patient.name,
+        updated_date: patient.updated_date,
+        unit: patient.unit,
+        obs_level: patient.obs_level,
+        precautions: patient.precautions
+      })
+    } else{
+      const patientId = this.props.match.params.patientID;
+      const route = '/service/patient/' + patientId;
+      axios.get(route)
+        .then(res => {
+          const patient = res.data;
+          this.setState({
+            name: patient.name,
+            updated_date: patient.updated_date,
+            unit: patient.unit,
+            obs_level: patient.obs_level,
+            precautions: patient.precautions
+          })
+          this.props.setCache(patient);
+        })
+
+      // Post the user viewed information back to the database
+      axios.post('/service/patient_views',
+        {
+          'user_id': this.props.userId,
+          'patient_id': this.props.match.params.patientID
+        }
+      )
+    }
+  }
+  
 
   selectHandler = (tab) => {
     this.setState({activeTab: tab});
   }
 
   renderPatientInfo = () => {
-    const precautionsText = this.state.precautions.join(', ');
+    let precautionsText = null;
+    if(this.state.precautions){
+      precautionsText = this.state.precautions.join(', ');
+    }
     return(
       <div>
         <div className='record-data hidden-sm hidden-xs'>
@@ -106,7 +134,7 @@ class PatientRecord extends Component {
         <Row>
           <h2>
             <i className='fa fa-times pull-right exit-button'
-               onClick={()=>this.props.exit()}
+               onClick={()=>this.exitHandler()}
              ></i>
             {this.state.name}</h2><hr/>
           <h4>View and manage patient information.</h4>

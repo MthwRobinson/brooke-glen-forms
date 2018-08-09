@@ -21,14 +21,12 @@ class App extends Component {
       isPaneOpen: false,
       view: null,
       lastView: null,
-      currentPatient: '03197a143e2c44b2b24a695b04f78d02',
       userId: 'eileen',
       cache: null
     };
   }
   
   componentDidMount() {
-    console.log(window.location.pathname);
     // Sets the view based on the url
     if(window.location.pathname==='/patient-records'){
       this.setState({ 
@@ -82,8 +80,7 @@ class App extends Component {
   selectPatientHandler = (patientId) => {
     // Selects a patient for display in the app
     this.setState({
-      view: 'patient-record',
-      currentPatient: patientId
+      view: 'patient-record'
     })
   }
 
@@ -199,9 +196,9 @@ class App extends Component {
       if(this.state.view==='patient-record'){
         body = (
             <PatientRecord
-                patientId={this.state.currentPatient}
                 userId={this.state.userId}
-                exit={()=>this.exitHandler()} 
+                exit={()=>this.exitHandler()}
+                lastView={this.state.lastView}
                 cache={this.state.cache}
                 setCache={(cache) => this.setCacheHandler(cache)}
             />
