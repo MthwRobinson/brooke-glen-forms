@@ -37,7 +37,7 @@ def delete_patient(patient_id):
     return jsonify(response)
 
 @app.route('/service/patient', methods=['POST'])
-def update_patient(patient_id):
+def update_patient():
     """ Creates or updates a patient in the database """
     patient_info = Patients(ENVIRONMENT)
     # Check to make sure there is a JSON in the request
@@ -45,10 +45,13 @@ def update_patient(patient_id):
         error = {'status': 'error: JSON not found'}
 
     patient = request.json
-    check = patient_info.get_patient(patient['patient_id'])
+    if 'patient_id' in patient:
+        check = patient_info.get_patient(patient['patient_id'])
+    else:
+        check = None
     if not check:
         patient_info.create_patient(patient)
-        reponse = {'status': 'patient created'}
+        response = {'status': 'patient created'}
     else:
         patient_info.update_patient(patient)
         response = {'status': 'patient updated'}

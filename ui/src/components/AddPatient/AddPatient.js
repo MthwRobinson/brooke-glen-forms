@@ -5,9 +5,7 @@ import {
   Col, 
   ControlLabel,
   FormControl, 
-  FormGroup, 
-  Grid, 
-  Row
+  FormGroup
 } from 'react-bootstrap';
 import { withRouter } from 'react-router-dom';
 import axios from 'axios';
@@ -20,8 +18,8 @@ class AddPatient extends Component {
     this.state = {
       firstName: null,
       lastName: null,
-      unit: null,
-      obsLevel: null,
+      unit: 'Long Term Care',
+      obsLevel: 'Q15',
       precautions: [],
       aggression: false,
       elopement: false,
@@ -48,41 +46,23 @@ class AddPatient extends Component {
     this.handleWithdrawal = this.handleWithdrawal.bind(this);
   }
 
-  componentDidMount(){
-    // Either makes a service call or sets patients using
-    //  cached data when the component is rendered
-    // if(this.props.cache){
-    //   this.setState({patients: this.props.cache});
-    // } else{
-    //   const route = '/service/patient_views/' + this.props.userId;
-    //   axios.get(route)
-    //     .then(res => {
-    //       const patients = res.data;
-    //       this.setState({patients: patients });
-    //       this.props.setCache(patients);
-    //     })
-    // }
-  }
-
   clearHandler = () => {
     // Clears the inputs of the form
-    // this.setState({
-    //   firstName: null,
-    //   lastName: null,
-    //   unit: null,
-    //   obsLevel: null,
-    //   precautions: [],
-    //   aggression: false,
-    //   elopement: false,
-    //   fall: false,
-    //   homocide: false,
-    //   programSeparately: false,
-    //   seizure: false,
-    //   selfMutilation: false,
-    //   withdrawal: false
-    // })
     document.getElementById('patient-info-form').reset();
-    console.log(this.state);
+  }
+
+  submitHandler = () => {
+    // Post the new patient information to the database
+    const postBody = {
+      'first_name': this.state.firstName,
+      'last_name' : this.state.lastName,
+      'unit': this.state.unit,
+      'obs_level': this.state.obsLevel,
+      'precautions': this.buildPrecautions()
+    };
+    axios.post('/service/patient', postBody)
+      .then(res =>{this.clearHandler()})
+
   }
 
   buildPrecautions = () => {
@@ -297,6 +277,7 @@ class AddPatient extends Component {
               <Col xs={12} sm={12} md={12} lg={12}>
                 <Button
                   className='patient-form-button'
+                  onClick={()=>this.submitHandler()}
                 >Submit</Button>
                 <Button
                   className='patient-form-button'
