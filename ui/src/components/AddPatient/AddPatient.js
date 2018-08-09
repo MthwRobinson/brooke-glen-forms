@@ -22,6 +22,7 @@ class AddPatient extends Component {
       lastName: null,
       unit: null,
       obsLevel: null,
+      precautions: [],
       aggression: false,
       elopement: false,
       fall: false,
@@ -61,6 +62,57 @@ class AddPatient extends Component {
     //       this.props.setCache(patients);
     //     })
     // }
+  }
+
+  clearHandler = () => {
+    // Clears the inputs of the form
+    // this.setState({
+    //   firstName: null,
+    //   lastName: null,
+    //   unit: null,
+    //   obsLevel: null,
+    //   precautions: [],
+    //   aggression: false,
+    //   elopement: false,
+    //   fall: false,
+    //   homocide: false,
+    //   programSeparately: false,
+    //   seizure: false,
+    //   selfMutilation: false,
+    //   withdrawal: false
+    // })
+    document.getElementById('patient-info-form').reset();
+    console.log(this.state);
+  }
+
+  buildPrecautions = () => {
+    // Compiles the precautions from the check boxes into a list
+    let precautions = []
+    if(this.state.aggression===true){
+      precautions.push('Aggression');
+    }
+    if(this.state.elopement===true){
+      precautions.push('Elopement');
+    }
+    if(this.state.fall===true){
+      precautions.push('Fall');
+    }
+    if(this.state.homocide===true){
+      precautions.push('Homocide');
+    }
+    if(this.state.programSeparately===true){
+      precautions.push('Program Separately');
+    }
+    if(this.state.seizure===true){
+      precautions.push('Seizure');
+    }
+    if(this.state.selfMutilation===true){
+      precautions.push('Self-Mutilation');
+    }
+    if(this.state.withdrawal===true){
+      precautions.push('Withdrawal');
+    }
+    return precautions
   }
 
   handleFirstName(event) {
@@ -128,6 +180,8 @@ class AddPatient extends Component {
     this.setState({ withdrawal: event.target.checked });
   }
 
+
+
   render() {
     return (
       <div className="AddPatient">
@@ -136,7 +190,7 @@ class AddPatient extends Component {
         <h4>Add a patient and define their crisis plan</h4>
         <div className='add-patient-form'>
           <h3>Patient Info</h3>
-          <form>
+          <form id='patient-info-form'>
             <Col xs={6} sm={6} md={6} lg={6} >
               <FormGroup controlId="formControlSelect">
                 <ControlLabel>First Name</ControlLabel>
@@ -246,8 +300,8 @@ class AddPatient extends Component {
                 >Submit</Button>
                 <Button
                   className='patient-form-button'
+                  onClick={()=>this.clearHandler()}
                 >Clear</Button>
-                <p>{this.state.aggression}</p>
               </Col>
           </form>
         </div>
