@@ -8,4 +8,9 @@
 .add-patient-form {
   padding-left: 35px;
   padding-top: 2px;
+  padding-right: 5%;
+}
+
+.patient-form-button {
+  margin-right: 15px;
 }
