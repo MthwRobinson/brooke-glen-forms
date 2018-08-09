@@ -8,6 +8,7 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import '../node_modules/font-awesome/css/font-awesome.min.css';
 import 'react-sliding-pane/dist/react-sliding-pane.css';
 
+import AddPatient from './components/AddPatient/AddPatient';
 import Header from './components/Header/Header';
 import Home from './components/Home/Home';
 import PatientRecord from './components/PatientRecord/PatientRecord';
@@ -41,6 +42,11 @@ class App extends Component {
     } else if (window.location.pathname.indexOf('/patient-record/') > -1){ 
       this.setState({
         view: 'patient-record',
+        lastView: 'home'
+      })
+    } else if (window.location.pathname==='/add-patient'){
+      this.setState({
+        view: 'add-patient',
         lastView: 'home'
       })
     } else {
@@ -109,6 +115,10 @@ class App extends Component {
           to="/patient-records"
           onClick={()=>this.viewChangeHandler('patient-records')}
         >Patient Records</Link><br/>
+        <Link
+          to="/add-patient"
+          onClick={()=>this.viewChangeHandler('add-patient')}
+        >Add Patient</Link><br/>
         <Link 
           to="/trends"
           onClick={()=>this.viewChangeHandler('trends')}
@@ -210,6 +220,24 @@ class App extends Component {
         </div>
       )
     }
+    
+    // Builds the screen with graphs and analytics
+    const addPatient = () => {
+      let body = null;
+      if(this.state.view==='add-patient'){
+        body = (
+            <AddPatient
+                cache={this.state.cache}
+                setCache={(cache) => this.setCacheHandler(cache)}
+            />
+          )
+      }
+      return(
+        <div>
+          {body}
+        </div>
+      )
+    }
 
     return (
       <div className="App">
@@ -221,6 +249,7 @@ class App extends Component {
             <Route path="/patient-records" component={patientRecords} />
             <Route path="/trends" component={trends} />
             <Route path="/patient-record/:patientID" component={patientRecord} />
+            <Route path="/add-patient" component={addPatient} />
           </div>
         </Router>
         {patientRecord}

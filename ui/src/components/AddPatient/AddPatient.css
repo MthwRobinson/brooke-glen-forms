@@ -1,0 +1,11 @@
+.AddPatient {
+  padding-left: 5%;
+  padding-right: 5%;
+  overflow-y: scroll;
+  max-height: 800px; 
+}
+
+.add-patient-form {
+  padding-left: 35px;
+  padding-top: 2px;
+}
