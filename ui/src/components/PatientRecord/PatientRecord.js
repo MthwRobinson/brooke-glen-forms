@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Col, Nav, NavItem, Row } from 'react-bootstrap';
+import { withRouter } from 'react-router-dom';
 import axios from 'axios';
 
 import './PatientRecord.css';
@@ -22,6 +23,7 @@ class PatientRecord extends Component {
 
   componentDidMount(){
     // Select the patient information
+    console.log(this.props.match.params.patientID)
     const route = '/service/patient/' + this.props.patientId;
     axios.get(route)
       .then(res => {
@@ -142,4 +144,4 @@ class PatientRecord extends Component {
   }
 }
 
-export default PatientRecord;
+export default withRouter(PatientRecord);

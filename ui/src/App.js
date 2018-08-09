@@ -21,13 +21,14 @@ class App extends Component {
       isPaneOpen: false,
       view: null,
       lastView: null,
-      currentPatient: null,
+      currentPatient: '03197a143e2c44b2b24a695b04f78d02',
       userId: 'eileen',
       cache: null
     };
   }
   
   componentDidMount() {
+    console.log(window.location.pathname);
     // Sets the view based on the url
     if(window.location.pathname==='/patient-records'){
       this.setState({ 
@@ -39,6 +40,11 @@ class App extends Component {
         view: 'trends',
         lastView: 'trends'
       });
+    } else if (window.location.pathname.indexOf('/patient-record/') > -1){ 
+      this.setState({
+        view: 'patient-record',
+        lastView: 'home'
+      })
     } else {
       this.setState({ 
         view: 'home',
@@ -76,7 +82,7 @@ class App extends Component {
   selectPatientHandler = (patientId) => {
     // Selects a patient for display in the app
     this.setState({
-      view: 'patientRecord',
+      view: 'patient-record',
       currentPatient: patientId
     })
   }
@@ -186,24 +192,27 @@ class App extends Component {
         </div>
       )
     }
-
-    // Builds an individual patient's record
-    let patientRecord = null;
-    if(this.state.view==='patientRecord'){
-      patientRecord = (
-          <div>
-          <PatientRecord
-              patientId={this.state.currentPatient}
-              userId={this.state.userId}
-              exit={()=>this.exitHandler()} 
-              cache={this.state.cache}
-              setCache={(cache) => this.setCacheHandler(cache)}
-          />
-          </div>
-        );
+    
+    // Builds the screen with graphs and analytics
+    const patientRecord = () => {
+      let body = null;
+      if(this.state.view==='patient-record'){
+        body = (
+            <PatientRecord
+                patientId={this.state.currentPatient}
+                userId={this.state.userId}
+                exit={()=>this.exitHandler()} 
+                cache={this.state.cache}
+                setCache={(cache) => this.setCacheHandler(cache)}
+            />
+          )
+      }
+      return(
+        <div>
+          {body}
+        </div>
+      )
     }
-
-    console.log(this.props);
 
     return (
       <div className="App">
@@ -214,6 +223,7 @@ class App extends Component {
             <Route exact path="/" component={home} />
             <Route path="/patient-records" component={patientRecords} />
             <Route path="/trends" component={trends} />
+            <Route path="/patient-record/:patientID" component={patientRecord} />
           </div>
         </Router>
         {patientRecord}
