@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {
   Button,
+  Checkbox,
   Col, 
   ControlLabel,
   FormControl, 
@@ -21,7 +22,14 @@ class AddPatient extends Component {
       lastName: null,
       unit: null,
       obsLevel: null,
-      precautions: null
+      aggression: false,
+      elopement: false,
+      fall: false,
+      homocide: false,
+      programSeparately: false,
+      seizure: false,
+      selfMutilation: false,
+      withdrawal: false
     }
 
     // Bindings for info from the forms
@@ -29,7 +37,14 @@ class AddPatient extends Component {
     this.handleLastName = this.handleLastName.bind(this);
     this.handleUnit = this.handleUnit.bind(this);
     this.handleObsLevel = this.handleObsLevel.bind(this);
-    this.handlePrecautions = this.handlePrecautions.bind(this);
+    this.handleAggression = this.handleAggression.bind(this);
+    this.handleElopement = this.handleElopement.bind(this);
+    this.handleFall = this.handleFall.bind(this);
+    this.handleHomocide = this.handleHomocide.bind(this);
+    this.handleProgramSeparately = this.handleProgramSeparately.bind(this);
+    this.handleSeizure = this.handleSeizure.bind(this);
+    this.handleSelfMutilation = this.handleSelfMutilation.bind(this);
+    this.handleWithdrawal = this.handleWithdrawal.bind(this);
   }
 
   componentDidMount(){
@@ -68,9 +83,49 @@ class AddPatient extends Component {
     this.setState({ obsLevel: event.target.value });
   }
   
-  handlePrecautions(event) {
-    // Updates the precautions  with the info from the form
-    this.setState({ precautions: event.target.value });
+  handleAggression(event) {
+    // Updates the aggression with the info from the form
+    this.setState({ aggression: event.target.checked });
+  }
+  
+  handleElopement(event) {
+    // Updates elopement with the info from the form
+    this.setState({ elopement: event.target.checked });
+  }
+  
+  handleFall(event) {
+    // Updates fall with the info from the form
+    this.setState({ fall: event.target.checked });
+  }
+  
+  handleHomocide(event) {
+    // Updates homocide with the info from the form
+    this.setState({ homocide: event.target.checked });
+  }
+  
+  handleProgramSeparately(event) {
+    // Updates program separately with the info from the form
+    this.setState({ programSeparately: event.target.checked });
+  }
+  
+  handleRespiratory(event) {
+    // Updates respiratory with the info from the form
+    this.setState({ respiratory: event.target.checked });
+  }
+  
+  handleSeizure(event) {
+    // Updates seizure with the info from the form
+    this.setState({ seizure: event.target.checked });
+  }
+  
+  handleSelfMutilation(event) {
+    // Updates self mutilation with the info from the form
+    this.setState({ selfMutilation: event.target.checked });
+  }
+  
+  handleWithdrawal(event) {
+    // Updates withdrawal with the info from the form
+    this.setState({ withdrawal: event.target.checked });
   }
 
   render() {
@@ -131,35 +186,69 @@ class AddPatient extends Component {
                 </FormControl>
               </FormGroup>
             </Col>
-            <Col xs={12} sm={12} md={12} lg={12} >
-              <FormGroup controlId="formControlSelect">
-                <ControlLabel>Precautions</ControlLabel>
-                <FormControl
-                  componentClass="select"
-                  multiple
-                  value={this.state.precautions}
-                  onChange={this.handlePrecautions}
-                >
-                  <option value="Q15">Aggression</option>
-                  <option value="1:1">Elopement</option>
-                  <option value="CPAP">Fall</option>
-                  <option value="Homocide">Homocide</option>
-                  <option value="Program Separately">Program Separately</option>
-                  <option value="Respiratory">Respiratory</option>
-                  <option value="Seizure">Seizure</option>
-                  <option value="Self-Mutilation">Self-Mutilation</option>
-                  <option value="Withdrawal">Withdrawal</option>
-                </FormControl>
-              </FormGroup>
-            </Col>
-            <Col xs={3} sm={3} md={3} lg={3}>
-              <Button
-                className='patient-form-button'
-              >Submit</Button>
-              <Button
-                className='patient-form-button'
-              >Clear</Button>
-            </Col>
+            <FormGroup>
+                <Col xs={12} sm={12} md={12} lg={12}>
+                  <ControlLabel>Precautions</ControlLabel>
+                </Col>
+                <Col xs={3} sm={3} md={3} lg={3}>
+                  <Checkbox
+                    onClick={this.handleAggression}
+                    check={this.state.aggression}
+                  >Aggression</Checkbox>
+                </Col>
+                <Col xs={3} sm={3} md={3} lg={3}>
+                  <Checkbox
+                    onClick={this.handleElopement}
+                    check={this.state.elopement}
+                  >Elopement</Checkbox>
+                </Col>
+                <Col xs={3} sm={3} md={3} lg={3}>
+                  <Checkbox
+                    onClick={this.handleHomocide}
+                    check={this.state.homocide}
+                  >Homocide</Checkbox>
+                </Col>
+                <Col xs={3} sm={3} md={3} lg={3}>
+                  <Checkbox
+                    onClick={this.handleProgramSeparately}
+                    check={this.state.programSeparately}
+                  >Program Separately</Checkbox>
+                </Col>
+                <Col xs={3} sm={3} md={3} lg={3}>
+                  <Checkbox
+                    onClick={this.handleRespiratory}
+                    check={this.state.respiratory}
+                  >Respiratory</Checkbox>
+                </Col>
+                <Col xs={3} sm={3} md={3} lg={3}>
+                  <Checkbox
+                    onClick={this.handleSeizure}
+                    check={this.state.seizure}
+                  >Seizure</Checkbox>
+                </Col>
+                <Col xs={3} sm={3} md={3} lg={3}>
+                  <Checkbox
+                    onClick={this.handleSelfMutilation}
+                    check={this.state.selfMutilation}
+                  >Self-Mutilation</Checkbox>
+                </Col>
+                <Col xs={3} sm={3} md={3} lg={3}>
+                  <Checkbox
+                    onClick={this.handleWithdrawal}
+                    check={this.state.withdrawal}
+                  >Withdrawal</Checkbox>
+                </Col>
+            </FormGroup>
+
+              <Col xs={12} sm={12} md={12} lg={12}>
+                <Button
+                  className='patient-form-button'
+                >Submit</Button>
+                <Button
+                  className='patient-form-button'
+                >Clear</Button>
+                <p>{this.state.aggression}</p>
+              </Col>
           </form>
         </div>
 
