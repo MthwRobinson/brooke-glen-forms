@@ -18,8 +18,8 @@ class AddPatient extends Component {
     this.state = {
       firstName: null,
       lastName: null,
-      unit: 'Long Term Care',
-      obsLevel: 'Q15',
+      unit: '',
+      obsLevel: '',
       precautions: [],
       aggression: false,
       elopement: false,
@@ -49,6 +49,21 @@ class AddPatient extends Component {
   clearHandler = () => {
     // Clears the inputs of the form
     document.getElementById('patient-info-form').reset();
+    this.setState({
+      firstName: null,
+      lastName: null,
+      unit: '',
+      obsLevel: '',
+      precautions: [],
+      aggression: false,
+      elopement: false,
+      fall: false,
+      homocide: false,
+      programSeparately: false,
+      seizure: false,
+      selfMutilation: false,
+      withdrawal: false
+    });
   }
 
   submitHandler = () => {
@@ -201,6 +216,7 @@ class AddPatient extends Component {
                   value={this.state.unit}
                   onChange={this.handleUnit}
                 >
+                  <option value=""></option>
                   <option value="Long Term Care">Long Term Care</option>
                   <option value="Short Term Care">Short Term Care</option>
                 </FormControl>
@@ -214,6 +230,7 @@ class AddPatient extends Component {
                   value={this.state.obsLevel}
                   onChange={this.handleObsLevel}
                 >
+                  <option value=""></option>
                   <option value="Q15">Q15</option>
                   <option value="1:1">1:1</option>
                   <option value="CPAP">CPAP</option>
