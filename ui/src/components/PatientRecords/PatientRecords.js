@@ -207,12 +207,20 @@ class PatientRecords extends Component {
               return(
                 <tr className='table-row' key={index}>
                 <th
-                  onClick={()=>this.selectPatient(patient.patient_id)}>
-                  {patient.name}</th>
-                <th>{patient.updated_date}</th>
-                <th>{patient.unit}</th>
-                <th>{patient.obs_level}</th>
-                <th>{patient.precautions.join(', ')}</th>
+                  onClick={()=>this.selectPatient(patient.patient_id)}
+                >{patient.name}</th>
+                <th
+                  onClick={()=>this.selectPatient(patient.patient_id)}
+                >{patient.updated_date}</th>
+                <th
+                  onClick={()=>this.selectPatient(patient.patient_id)}
+                >{patient.unit}</th>
+                <th
+                  onClick={()=>this.selectPatient(patient.patient_id)}
+                >{patient.obs_level}</th>
+                <th
+                  onClick={()=>this.selectPatient(patient.patient_id)}
+                >{patient.precautions.join(', ')}</th>
                 <th><Button 
                       bsSize='small' 
                       bsStyle='danger'
