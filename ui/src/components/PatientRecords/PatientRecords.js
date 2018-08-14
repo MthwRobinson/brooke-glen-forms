@@ -84,6 +84,13 @@ class PatientRecords extends Component {
     this.props.selectPatient(patientID);
   }
 
+  addPatientHandler = () => {
+    // Switches to the add patient screen
+    this.props.setCache(null);
+    this.props.setView('add-patient');
+    this.props.history.push('add-patient');
+  }
+
   clearFilter = () => {
     // Clears the filter settings
     this.setState({
@@ -247,8 +254,13 @@ class PatientRecords extends Component {
     return (
       <div className="PatientRecords">
         <Row>
-            <h2>Patient Records</h2><hr/>
-            <h4>Search for, filter and access patient records.</h4><br/>
+          <h2>
+            <i 
+              className='fa fa-plus pull-right add-patient-button'
+              onClick={() => this.addPatientHandler()}
+            ></i>
+            Patient Records</h2><hr/>
+          <h4>Search for, filter and access patient records.</h4><br/>
         </Row>
         <Row className='filter-form'>
           {filters}

@@ -90,6 +90,11 @@ class App extends Component {
     })
   }
 
+  setViewHandler = (view) => {
+    // Method to set view from a child component
+    this.setState({view: view})
+  }
+
   exitHandler = () => {
     // Exits the screen in the patient component
     this.setState({ view: this.state.lastView });
@@ -168,6 +173,7 @@ class App extends Component {
           body = (
             <PatientRecords 
               selectPatient={(patientId) => this.selectPatientHandler(patientId)}
+              setView={(view) => this.setViewHandler(view)}
               userId={this.state.userId} 
               cache={this.state.cache}
               setCache={(cache) => this.setCacheHandler(cache)}
