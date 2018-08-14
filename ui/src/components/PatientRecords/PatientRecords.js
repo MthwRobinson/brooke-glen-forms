@@ -91,6 +91,47 @@ class PatientRecords extends Component {
     this.props.history.push('add-patient');
   }
 
+  deletePatientHandler = (patientId) => {
+    // Flips a patients active flag to false in the db
+    axios.delete('/service/patient/'+patientId)
+      .then(res => {
+        // Remove the patient from the state
+        const patients = [...this.state.patients];
+        let updatedPatients = [];
+        for(var i=0; i<patients.length; i++){
+          const patient = patients[i];
+          if(patient.patient_id != patientId){
+            updatedPatients.push(patient)
+          }
+        }
+
+        // Remove the patient from the all patients list
+        let allPatients = [...this.state.allPatients];
+        let updatedAllPatients = [];
+        for(var i=0; i<allPatients.length; i++){
+          const patient = allPatients[i];
+          if(patient.patient_id != patientId){
+            updatedAllPatients.push(patient)
+          }
+        }
+
+        // Update the state and the cache
+        this.setState({
+          allPatients: updatedAllPatients,
+          patients: updatedPatients
+        });
+        this.props.setCache({
+          allPatients: updatedAllPatients,
+          patients: updatedPatients,
+          unit: this.state.unit,
+          obsLevel: this.state.obsLevel,
+          precaution: this.state.precaution
+        });
+      })
+
+
+  }
+
   clearFilter = () => {
     // Clears the filter settings
     this.setState({
@@ -158,18 +199,28 @@ class PatientRecords extends Component {
               <th>Unit</th>
               <th>Obs. Level</th>
               <th>Precautions</th>
+              <th>Delete</th>
             </tr>
           </thead>
           <tbody>
             {this.state.patients.map((patient, index) => {
               return(
-              <tr className='table-row' key={index} 
-                onClick={()=>this.selectPatient(patient.patient_id)}>
-                <th>{patient.name}</th>
+                <tr className='table-row' key={index}>
+                <th
+                  onClick={()=>this.selectPatient(patient.patient_id)}>
+                  {patient.name}</th>
                 <th>{patient.updated_date}</th>
                 <th>{patient.unit}</th>
                 <th>{patient.obs_level}</th>
                 <th>{patient.precautions.join(', ')}</th>
+                <th><Button 
+                      bsSize='small' 
+                      bsStyle='danger'
+                      onClick={
+                        () => this.deletePatientHandler(patient.patient_id)
+                      }
+                    >Delete</Button>
+                </th>
               </tr>
               )
                 
