@@ -12,7 +12,7 @@ class PatientRecord extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      activeTab: 'crisisPlan',
+      activeTab: 'obsRecord',
       name: null,
       updated_date: null,
       unit: null,
@@ -151,15 +151,15 @@ class PatientRecord extends Component {
                 activeKey={this.state.activeTab} 
               >
                 <NavItem 
-                  eventKey="crisisPlan"
-                  onClick={()=>this.selectHandler('crisisPlan')}
-                  className='record-nav-item'
-                ><span className='record-tab'>Crisis Plan</span></NavItem>
-                <NavItem 
                   eventKey="obsRecord"
                   onClick={()=>this.selectHandler('obsRecord')}
                   className='record-nav-item'
                 ><span className='record-tab'>Observation Record</span></NavItem>
+                <NavItem 
+                  eventKey="crisisPlan"
+                  onClick={()=>this.selectHandler('crisisPlan')}
+                  className='record-nav-item'
+                ><span className='record-tab'>Crisis Plan</span></NavItem>
               </Nav>
             </Row>
             <Row>
