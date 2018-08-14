@@ -15,7 +15,7 @@ def test_create_patient():
         'obs_level': 'testobs',
         'precautions': ['testprecaution']
     }
-    patient_info.delete_patient(patient['patient_id'])
+    patient_info.delete_patient(patient['patient_id'], remove=True)
 
     patient_info.create_patient(patient)
     test_patient = patient_info.get_patient(patient['patient_id'])
@@ -33,10 +33,11 @@ def test_create_patient():
     patient = patient_info.normalize_patient(patient)
     for key in patient:
         assert test_patient[key] == patient[key]
-   
+  
     patient_info.delete_patient(patient['patient_id'])
     test_patient = patient_info.get_patient(patient['patient_id'])
     assert test_patient == None
+    patient_info.delete_patient(patient['patient_id'], remove=True)
 
 def test_get_patients():
     patient_info = Patients(ENV)

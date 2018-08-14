@@ -8,14 +8,16 @@ def test_post_view():
     patient_views.delete_views(user_id='unit_test_user')
     for i in range(10):
         patient_info = Patients(ENV)
+        patient_id = 'test_patient_'+str(i)
         patient = {
-            'patient_id': 'test_patient_'+str(i),
+            'patient_id': patient_id,
             'first_name': 'firstname',
             'last_name': 'lastname',
             'unit': 'testunit',
             'obs_level': 'testobs',
             'precautions': ['testprecaution']
         }
+        patient_info.delete_patient(patient_id, remove=True)
         patient_info.create_patient(patient)
         patient_views.post_view(
             user_id='unit_test_user',
@@ -39,7 +41,7 @@ def test_post_view():
     
     patient_views.delete_views(user_id='unit_test_user')
     for i in range(10):
-        patient_info.delete_patient('test_patient_'+str(i))
+        patient_info.delete_patient('test_patient_'+str(i), remove=True)
     viewed = patient_views.get_recently_viewed('unit_test_user', 3)
     assert len(viewed) == 0
 

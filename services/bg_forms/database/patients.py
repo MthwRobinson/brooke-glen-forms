@@ -42,12 +42,19 @@ class Patients(DBOps):
             cursor.execute(sql, values)
         self.connection.commit()
 
-    def delete_patient(self, patient_id):
+    def delete_patient(self, patient_id, remove=False):
         """ Deletes a patient from the database """
-        sql = """
-            DELETE FROM {schema}.patients
-            WHERE patient_id = '{patient_id}'
-        """.format(schema=self.pg_schema, patient_id=patient_id)
+        if remove:
+            sql = """
+                DELETE FROM {schema}.patients
+                WHERE patient_id = '{patient_id}'
+            """.format(schema=self.pg_schema, patient_id=patient_id)
+        else:
+            sql = """
+                UPDATE {schema}.patients
+                SET active=false
+                WHERE patient_id = '{patient_id}'
+            """.format(schema=self.pg_schema, patient_id=patient_id)
         with self.connection.cursor() as cursor:
             cursor.execute(sql)
         self.connection.commit()
@@ -85,6 +92,7 @@ class Patients(DBOps):
         sql = """
             SELECT * FROM {schema}.patients
             WHERE patient_id = '{patient_id}'
+            AND active = true
         """.format(schema=self.pg_schema, patient_id=patient_id)
         df = pd.read_sql(sql, self.connection)
         if len(df) > 0:
