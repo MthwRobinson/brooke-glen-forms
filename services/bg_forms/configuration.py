@@ -30,10 +30,10 @@ configs = {
     },
     'LOCAL': {
         'PG_HOST': 'localhost',
-        'PG_PORT': 5435,
-        'PG_DATABASE': 'bg_forms_dev',
+        'PG_PORT': 5432,
+        'PG_DATABASE': 'postgres',
         'PG_USER': 'postgres',
-        'PG_PASS': 'postgres',
+        'PG_PASS': 'VonCwitz10!!!!',
         'PG_SCHEMA': 'bg_forms',
         'TIMEZONE': pytz.timezone('US/Eastern')
     }

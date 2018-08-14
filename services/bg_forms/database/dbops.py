@@ -93,7 +93,7 @@ class DBOps(object):
 
     def load_data(self):
         """ Loads dummy data into the database """
-        filename = self.path + '/data/dummy_patients.json'
+        filename = self.path + '/../data/dummy_patients.json'
         with open(filename, 'r') as f:
             patients = json.load(f)
         for patient in patients:
